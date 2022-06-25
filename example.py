@@ -13,20 +13,20 @@ from amplitude_data_wrapper import (
     get_all_event_types,
 )
 
-api_key = config("AMPLITUDE_api_key")
-api_secret = config("AMPLITUDE_api_secret")
+api_key = config("AMPLITUDE_EU_PROD_KEY")
+api_secret = config("AMPLITUDE_EU_PROD_SECRET")
 email = config("email")
 chart_id_eu = config("chart_id_eu")
 example_id_eu = config("example_id_eu")
 cohort_id_eu = config("cohort_id_eu")
 # %%
 # without proxy
-r = get_chart(chart_id_eu, api_key, api_secret, region=1)  # region 1 is EU
+r = get_chart(api_key, api_secret, chart_id_eu, region=1)  # region 1 is EU
 r.status_code
 # %%
 # with proxy
 proxies = {"http": "http://myproxy.example.org/method"}
-r = get_chart(chart_id_eu, api_key, api_secret, region=1, proxy=proxies)
+r = get_chart(api_key, api_secret, chart_id_eu, region=1, proxy=proxies)
 r.status_code  # print status code
 # %%
 user = find_user(user=example_id_eu, api_key=api_key, secret=api_secret)
