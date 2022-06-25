@@ -11,6 +11,7 @@ from amplitude_data_wrapper import (
     get_deletion_jobs,
     export_project_data,
     get_all_event_types,
+    get_event_segmentation,
 )
 
 api_key = config("AMPLITUDE_EU_PROD_KEY")
@@ -80,3 +81,19 @@ data = export_project_data(
 types = get_all_event_types(api_key=api_key, secret=api_secret, region=1)
 types.status_code  # 200
 types.text  # prints data
+# %%
+# get an event with segments
+our_event_dict = {
+    "event_type": "pageview",
+    "group_by": [{"type": "event", "value": "app"}, {"type": "event", "value": "team"}],
+}
+data = get_event_segmentation(
+    api_key=api_key,
+    secret=api_secret,
+    start="20220601",
+    end="20220602",
+    event=our_event_dict,
+    metrics="uniques",
+    interval=1,
+    limit=1000,
+)

@@ -61,7 +61,22 @@ r.text # print data
 
 [Event segmentation](https://developers.amplitude.com/docs/dashboard-rest-api#event-segmentation)
 
-
+```python
+our_event_dict = {
+    "event_type": "pageview",
+    "group_by": [{"type": "event", "value": "app"}, {"type": "event", "value": "team"}],
+}
+data = get_event_segmentation(
+    api_key=api_key,
+    secret=api_secret,
+    start="20220601",
+    end="20220602",
+    event=our_event_dict,
+    metrics="uniques",
+    interval=1,
+    limit=1000,
+)
+```
 
 ### Privacy API
 

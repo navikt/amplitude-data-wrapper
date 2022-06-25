@@ -3,6 +3,7 @@ from tqdm.auto import tqdm
 import requests
 import logging
 import time
+import json
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
@@ -397,5 +398,74 @@ def get_all_event_types(api_key: str, secret: str, region=1, proxy=""):
         headers=headers,
         auth=(api_key, secret),
         proxies=proxy,
+    )
+    return r
+
+
+# %%
+def get_event_segmentation(
+    api_key,
+    secret,
+    start,
+    end,
+    event,
+    metrics="uniques",
+    interval=1,
+    segment=None,
+    group=None,
+    limit=100,
+    region=1,
+):
+    """
+    Get metrics for an event with segmentation
+
+    See https://developers.amplitude.com/docs/dashboard-rest-api#event-segmentation
+
+    Parameters
+    ---------
+    api_key: str, required
+        API key for the project in Amplitude
+    secret: str, required
+        API secret for the project in Amplitude
+    region: int, optional
+        Region of the data centre. Default is 1 for Europe, and 2 for USA.
+    start: date, required
+        YYYYMMDD
+    end, dato, required
+        YYYYMMDD
+    event: dict, required
+        1 or 2 event-types with filter
+    metrics: optional
+        non-property metrics
+    interval: optional
+        time interval for the query. -300000, -3600000, 1, 7, or 30 for realtime, per hour, day, week and month. Default is 1.
+    segment:
+        segment
+    group:
+        group by
+    limit: int
+        Number of rows. Default is 100, max is 1000.
+    proxy: dict, optional
+        Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
+
+        Default is no proxy.
+
+
+    """
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    url = api_domains
+    r = requests.get(
+        f"{url[region]}/api/2/events/segmentation",
+        params={
+            "e": json.dumps(event),
+            "m": metrics,
+            "start": start,
+            "end": end,
+            "i": interval,
+            "s": segment,
+            "limit": limit,
+        },
+        headers=headers,
+        auth=(api_key, secret),
     )
     return r
