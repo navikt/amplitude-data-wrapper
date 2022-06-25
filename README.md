@@ -24,11 +24,17 @@ This package also supports using a proxy so you can keep your project API keys a
 
 See examples below and in [example.py](example.py)
 
+Install with
+
+```
+pip install amplitude-data-wrapper
+```
+
 ### Dashboard Rest API
 
 [Results from an existing chart](https://developers.amplitude.com/docs/dashboard-rest-api#results-from-an-existing-chart)
 
-Get data from EU account
+Get data from EU account by setting `region=1`.
 
 ```python
 from amplitude_data_wrapper import get_chart
@@ -38,7 +44,7 @@ r.status_code  # 200
 r.text # print data
 ```
 
-Get data from US account
+Get data from US account by setting `region=2`.
 
 ```python
 from amplitude_data_wrapper import get_chart
@@ -48,7 +54,7 @@ r.status_code  # 200
 r.text # print data
 ```
 
-Get data from EU account with a proxy
+Get data from EU account with a proxy by setting region and proxy using a dictionary.
 
 ```python
 from amplitude_data_wrapper import get_chart
@@ -59,7 +65,7 @@ r.status_code  # 200
 r.text # print data
 ```
 
-[Event segmentation](https://developers.amplitude.com/docs/dashboard-rest-api#event-segmentation)
+[Event segmentation](https://developers.amplitude.com/docs/dashboard-rest-api#event-segmentation) lets you export events with segments and filters.
 
 ```python
 our_event_dict = {
@@ -76,6 +82,16 @@ data = get_event_segmentation(
     interval=1,
     limit=1000,
 )
+```
+
+[User search](https://developers.amplitude.com/docs/dashboard-rest-api#user-search) lets you search for a user with a specific Amplitude ID, Device ID, User ID, or User ID prefix.
+
+```python
+user = find_user(
+    user=example_id_eu, 
+    api_key=api_key, 
+    secret=api_secret,
+    region=1)
 ```
 
 ### Privacy API

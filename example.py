@@ -30,7 +30,7 @@ proxies = {"http": "http://myproxy.example.org/method"}
 r = get_chart(api_key, api_secret, chart_id_eu, region=1, proxy=proxies)
 r.status_code  # print status code
 # %%
-user = find_user(user=example_id_eu, api_key=api_key, secret=api_secret)
+user = find_user(user=example_id_eu, api_key=api_key, secret=api_secret, region=1)
 user.text  # print data
 # %%
 proxies = {"http": "http://myproxy.example.org/method"}

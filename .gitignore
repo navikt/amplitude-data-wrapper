@@ -5,5 +5,4 @@ data/
 dist/
 requirements.txt
 poetry.lock
-demo.py
 config.txt
