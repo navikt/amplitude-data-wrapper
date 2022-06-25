@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "amplitude-data-wrapper"
-version = "0.2.4"
+version = "0.3.0"
 description = "python wrapper for using the amplitude analytics and taxonomy APIs"
 authors = ["Tobias McVey <tobias.mcvey@gmail.com>"]
 license = "MIT"
@@ -10,7 +10,7 @@ repository = "https://github.com/tobiasmcvey/amplitude-data-wrapper"
 documentation = "https://github.com/tobiasmcvey/amplitude-data-wrapper"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 requests = "^2.27.1"
 tqdm = "^4.62.3"
 
