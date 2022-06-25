@@ -1,5 +1,7 @@
 # Amplitude data wrapper
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 This is a wrapper for [Amplitude](https://amplitude.com/) APIs. You can use it to query and export data from your account and use the taxonomy API.
 
 **Why use this package instead of other wrappers?**

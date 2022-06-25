@@ -78,5 +78,5 @@ data = export_project_data(
 )
 # %%
 types = get_all_event_types(api_key=api_key, secret=api_secret, region=1)
-types.status_code # 200
-types.text # prints data
+types.status_code  # 200
+types.text  # prints data
