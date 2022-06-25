@@ -33,13 +33,13 @@ user = find_user(user=example_id_eu, api_key=api_key, secret=api_secret)
 user.text  # print data
 # %%
 proxies = {"http": "http://myproxy.example.org/method"}
-filstien = "data/cohortdata.csv"
+path = "data/cohortdata.csv"
 url = ""
-kull = get_cohort(
+cohort = get_cohort(
     api_key,
     api_secret,
     cohort_id_eu,
-    filename=filstien,
+    filename=path,
     props=1,
     region=1,
     proxy=proxies,
