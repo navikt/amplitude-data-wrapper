@@ -1,6 +1,6 @@
 # Amplitude analytics
 
-This is a wrapper for Amplitude APIs. You can use it to query and export data from your account and use the taxonomy API.
+This is a wrapper for [Amplitude](https://amplitude.com/) APIs. You can use it to query and export data from your account and use the taxonomy API.
 
 **Why use this package instead of other wrappers?**
 
