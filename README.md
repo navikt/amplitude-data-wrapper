@@ -4,6 +4,8 @@
 
 This is a wrapper for [Amplitude](https://amplitude.com/) APIs. You can use it to query and export data from your account and use the taxonomy API.
 
+Built with [requests](https://requests.readthedocs.io/en/latest/) and [tqdm](https://github.com/tqdm/tqdm)
+
 **Why use this package instead of other wrappers?**
 
 This package supports regions and so you can use it with Amplitude accounts in the EU and USA.
