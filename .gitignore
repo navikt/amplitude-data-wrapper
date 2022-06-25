@@ -3,3 +3,4 @@ __pycache__/
 data/
 requirements.txt
 poetry.lock
+demo.py
