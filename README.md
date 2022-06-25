@@ -10,6 +10,28 @@ This package also supports using a proxy so you can keep your project API keys a
 
 **Get existing chart**
 
+Get data from EU account without proxy
+
+```python
+from amplitude_data_wrapper import get_chart
+
+r = get_chart(chart_id, api_key, api_secret, region=1)
+r.status_code  # 200
+r.text # print data
+```
+
+Get data from US account without proxy
+
+```python
+from amplitude_data_wrapper import get_chart
+
+r = get_chart(chart_id, api_key, api_secret, region=2)
+r.status_code  # 200
+r.text # print data
+```
+
+Get data from EU account With proxy
+
 ```python
 from amplitude_data_wrapper import get_chart
 
