@@ -4,5 +4,4 @@ __pycache__/
 data/
 dist/
 requirements.txt
-poetry.lock
 config.txt

@@ -1,7 +1,8 @@
 # %%
 import json
+import os
 
-from decouple import config
+from dotenv import load_dotenv
 
 from amplitude_data_wrapper import (
     get_chart,
@@ -13,13 +14,14 @@ from amplitude_data_wrapper import (
     get_all_event_types,
     get_event_segmentation,
 )
-
-api_key = config("AMPLITUDE_EU_PROD_KEY")
-api_secret = config("AMPLITUDE_EU_PROD_SECRET")
-email = config("email")
-chart_id_eu = config("chart_id_eu")
-example_id_eu = config("example_id_eu")
-cohort_id_eu = config("cohort_id_eu")
+# %%
+load_dotenv()
+api_key = os.getenv('AMPLITUDE_EU_PROD_KEY')
+api_secret = os.getenv("AMPLITUDE_EU_PROD_SECRET")
+email = os.getenv("email")
+chart_id_eu = os.getenv("chart_id_eu")
+example_id_eu = os.getenv("example_id_eu")
+cohort_id_eu = os.getenv("cohort_id_eu")
 # %%
 # without proxy
 r = get_chart(api_key, api_secret, chart_id_eu, region=1)  # region 1 is EU

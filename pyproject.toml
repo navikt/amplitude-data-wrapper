@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "amplitude-data-wrapper"
-version = "0.3.8"
+version = "0.3.9"
 description = "python wrapper for using the amplitude analytics and taxonomy APIs"
 authors = ["Tobias McVey <tobias.mcvey@nav.no>"]
 license = "MIT"
@@ -22,6 +22,10 @@ python-decouple = "^3.6"
 black = "^22.3.0"
 twine = "^4.0.1"
 keyring = "^23.6.0"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.21.1"
+python-dotenv = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
