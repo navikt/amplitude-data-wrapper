@@ -1,32 +1,22 @@
-[tool.poetry]
+[project]
 name = "amplitude-data-wrapper"
-version = "0.3.9"
+version = "0.4.0"
 description = "python wrapper for using the amplitude analytics and taxonomy APIs"
-authors = ["Tobias McVey <tobias.mcvey@nav.no>"]
-license = "MIT"
-readme="README.md"
-homepage = "https://github.com/navikt/amplitude-data-wrapper"
-repository = "https://github.com/navikt/amplitude-data-wrapper"
-documentation = "https://github.com/navikt/amplitude-data-wrapper"
-
+authors = [
+    {name = "Tobias McVey", email = "tobias.mcvey@nav.no"},
+]
+readme = "README.md"
+requires-python = ">=3.10"
 keywords = ["amplitude"]
+license = {file = "LICENSE"}
 
-[tool.poetry.dependencies]
-python = "^3.8"
-requests = "^2.27.1"
-tqdm = "^4.62.3"
+[project.urls]
+"Homepage" = "https://github.com/navikt/amplitude-data-wrapper"
 
-[tool.poetry.dev-dependencies]
-ipykernel = "^6.7.0"
-python-decouple = "^3.6"
-black = "^22.3.0"
-twine = "^4.0.1"
-keyring = "^23.6.0"
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.21.1"
-python-dotenv = "^1.0.0"
+[tool.setuptools.packages.find]
+where = ["amplitude_data_wrapper"]
+exclude = ["tests", "testing", "requirements"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"

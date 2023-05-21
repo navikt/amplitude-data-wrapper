@@ -1,4 +1,8 @@
 __pycache__/
+amplitude_data_wrapper.egg-info/
+prodenv/
+testing/
+dist/
 .env
 .python-version
 data/
