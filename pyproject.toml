@@ -1,6 +1,6 @@
 [project]
 name = "amplitude-data-wrapper"
-version = "0.4.0"
+version = "0.4.1"
 description = "python wrapper for using the amplitude analytics and taxonomy APIs"
 authors = [
     {name = "Tobias McVey", email = "tobias.mcvey@nav.no"},
@@ -9,6 +9,15 @@ readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["amplitude"]
 license = {file = "LICENSE"}
+
+dependencies = [
+    "certifi==2023.5.7",
+    "charset-normalizer==3.1.0",
+    "idna==3.4",
+    "requests==2.30.0",
+    "tqdm==4.65.0",
+    "urllib3==2.0.2"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/navikt/amplitude-data-wrapper"

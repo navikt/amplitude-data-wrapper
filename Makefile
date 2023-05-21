@@ -1,13 +1,13 @@
 install:
 	pip install --upgrade pip-tools pip setuptools
-	pip-compile --generate-hashes --output-file requirements/main.txt requirements/main.in
-	pip-compile --generate-hashes --output-file requirements/dev.txt requirements/dev.in
+	pip-compile --output-file requirements/main.txt requirements/main.in
+	pip-compile --output-file requirements/dev.txt requirements/dev.in
 	pip install -r requirements/main.txt -r requirements/dev.txt
 
 update-deps:
 	pip install --upgrade pip-tools pip setuptools
-	pip-compile --upgrade --build-isolation --generate-hashes --output-file requirements/main.txt requirements/main.in
-	pip-compile --upgrade --build-isolation --generate-hashes --output-file requirements/dev.txt requirements/dev.in
+	pip-compile --upgrade --build-isolation --output-file requirements/main.txt requirements/main.in
+	pip-compile --upgrade --build-isolation --output-file requirements/dev.txt requirements/dev.in
 
 init:
 	pip install --editable .
