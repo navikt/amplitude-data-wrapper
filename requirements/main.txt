@@ -10,9 +10,9 @@ charset-normalizer==3.1.0
     # via requests
 idna==3.4
     # via requests
-requests==2.30.0
-    # via -r requirements/main.in
+requests==2.31.0
+    # via -r main.in
 tqdm==4.65.0
-    # via -r requirements/main.in
+    # via -r main.in
 urllib3==2.0.2
     # via requests
