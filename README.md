@@ -37,9 +37,9 @@ pip install amplitude-data-wrapper
 Get data from EU account by setting `region=1`.
 
 ```python
-from amplitude_data_wrapper import get_chart
+import amplitude_data_wrapper.analytics_api as amp
 
-r = get_chart(chart_id, api_key, api_secret, region=1)
+r = amp.get_chart(chart_id, api_key, api_secret, region=1)
 r.status_code  # 200
 r.text # print data
 ```
@@ -47,9 +47,8 @@ r.text # print data
 Get data from US account by setting `region=2`.
 
 ```python
-from amplitude_data_wrapper import get_chart
 
-r = get_chart(chart_id, api_key, api_secret, region=2)
+r = amp.get_chart(chart_id, api_key, api_secret, region=2)
 r.status_code  # 200
 r.text # print data
 ```
@@ -57,10 +56,9 @@ r.text # print data
 Get data from EU account with a proxy by setting region and proxy using a dictionary.
 
 ```python
-from amplitude_data_wrapper import get_chart
 
 proxies = {"http": "http://myproxy.domain.org/path"}
-r = get_chart(chart_id, api_key, api_secret, region=1, proxy=proxies)
+r = amp.get_chart(chart_id, api_key, api_secret, region=1, proxy=proxies)
 r.status_code  # 200
 r.text # print data
 ```
@@ -72,7 +70,7 @@ our_event_dict = {
     "event_type": "pageview",
     "group_by": [{"type": "event", "value": "app"}, {"type": "event", "value": "team"}],
 }
-data = get_event_segmentation(
+data = amp.get_event_segmentation(
     api_key=api_key,
     secret=api_secret,
     start="20220601",
@@ -87,7 +85,7 @@ data = get_event_segmentation(
 [User search](https://developers.amplitude.com/docs/dashboard-rest-api#user-search) lets you search for a user with a specific Amplitude ID, Device ID, User ID, or User ID prefix.
 
 ```python
-user = find_user(
+user = amp.find_user(
     user=example_id_eu, 
     api_key=api_key, 
     secret=api_secret,
@@ -99,7 +97,7 @@ user = find_user(
 Delete user data with a [deletion job](https://developers.amplitude.com/docs/user-deletion#deletion-job)
 
 ```python
-deleteme = delete_user_data(
+deleteme = amp.delete_user_data(
     user["matches"][0]["amplitude_id"],
     email=email,
     api_key=api_key,
@@ -113,7 +111,7 @@ deleteme = delete_user_data(
 [Get a list of deletion jobs](https://developers.amplitude.com/docs/user-deletion#get)
 
 ```python
-tobe_deleted = get_deletion_jobs(
+tobe_deleted = amp.get_deletion_jobs(
     start="2022-06-01",
     end="2022-07-01",
     api_key=api_key,
@@ -129,7 +127,7 @@ tobe_deleted = get_deletion_jobs(
 ```python
 proxies = {"http": "http://myproxy.domain.org/path"}
 file_path = "path-to/cohortdata.csv"
-kull = get_cohort(
+kull = amp.get_cohort(
     api_key,
     api_secret,
     cohort_id,
@@ -147,7 +145,7 @@ kull = get_cohort(
 ```python
 start = "20220601T00"
 end = "20220601T01"
-data = export_project_data(
+data = amp.export_project_data(
     start=start,
     end=end,
     api_key=api_key,
@@ -162,7 +160,7 @@ data = export_project_data(
 [Get all event types](https://developers.amplitude.com/docs/taxonomy-api#get-all-event-types)
 
 ```python
-types = get_all_event_types(
+types = amp.get_all_event_types(
     api_key=api_key, 
     secret=api_secret, 
     region=1)
