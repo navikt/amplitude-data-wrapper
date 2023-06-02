@@ -15,7 +15,7 @@ init:
 
 update: update-deps init
 
-build-package:
+build:
 	rm -rf dist/
 	python3.10 -m build
 
