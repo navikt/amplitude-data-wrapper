@@ -40,7 +40,7 @@ importlib-metadata==6.6.0
     #   twine
 ipykernel==6.23.1
     # via -r requirements/dev.in
-ipython==8.13.2
+ipython==8.14.0
     # via ipykernel
 jaraco-classes==3.2.3
     # via keyring
@@ -105,13 +105,13 @@ python-dateutil==2.8.2
     # via jupyter-client
 python-dotenv==1.0.0
     # via -r requirements/dev.in
-pyzmq==25.0.2
+pyzmq==25.1.0
     # via
     #   ipykernel
     #   jupyter-client
 readme-renderer==37.3
     # via twine
-requests==2.30.0
+requests==2.31.0
     # via
     #   requests-toolbelt
     #   twine
@@ -119,7 +119,7 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==13.3.5
+rich==13.4.1
     # via twine
 six==1.16.0
     # via
