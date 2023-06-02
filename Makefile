@@ -16,6 +16,7 @@ init:
 update: update-deps init
 
 build-package:
+	rm -rf dist/
 	python3.10 -m build
 
 pypi_publish:
