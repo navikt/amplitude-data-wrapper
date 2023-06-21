@@ -1,0 +1,40 @@
+[project]
+name = "amplitude-data-wrapper"
+version = "0.4.3"
+description = "python wrapper for using the amplitude analytics and taxonomy APIs"
+authors = [
+    {name = "Tobias McVey", email = "tobias.mcvey@nav.no"},
+]
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["amplitude"]
+license = {file = "LICENSE"}
+
+dependencies = [
+    "requests",
+    "tqdm"
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel",
+    "python-dotenv",
+    "black",
+    "twine",
+    "keyring",
+    "pip-tools"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/navikt/amplitude-data-wrapper"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests", "testing"]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
