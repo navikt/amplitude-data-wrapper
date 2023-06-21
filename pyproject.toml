@@ -28,9 +28,12 @@ dev = [
 [project.urls]
 "Homepage" = "https://github.com/navikt/amplitude-data-wrapper"
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+
 [tool.setuptools.packages.find]
-where = ["amplitude_data_wrapper"]
-exclude = ["tests", "testing", "requirements"]
+where = ["src"]
+exclude = ["tests", "testing"]
 
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
