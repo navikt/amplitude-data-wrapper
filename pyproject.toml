@@ -21,7 +21,8 @@ dev = [
     "python-dotenv",
     "black",
     "twine",
-    "keyring"
+    "keyring",
+    "pip-tools"
 ]
 
 [project.urls]
