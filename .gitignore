@@ -3,8 +3,8 @@ amplitude_data_wrapper.egg-info/
 venv*
 testing/
 dist/
+.DS_Store
 .env
-.python-version
 data/
 dist/
 requirements.txt
