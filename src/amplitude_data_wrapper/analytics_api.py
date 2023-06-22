@@ -10,6 +10,8 @@ from requests.packages.urllib3.util.retry import Retry
 logging.basicConfig(level=logging.INFO)
 # %%
 api_domains = {1: "https://analytics.eu.amplitude.com", 2: "https://amplitude.com"}
+
+
 # %%
 def get_chart(api_key="", secret="", chart_id="", region=1, proxy=""):
     """
