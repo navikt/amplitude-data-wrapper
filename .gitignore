@@ -3,9 +3,6 @@ amplitude_data_wrapper.egg-info/
 venv*
 testing/
 dist/
+data/
 .DS_Store
 .env
-data/
-dist/
-requirements.txt
-config.txt
