@@ -1,13 +1,15 @@
+PYTHON=python3.10
+
 install:
 	pip install --upgrade pip-tools pip setuptools
-	python3.10 -m piptools compile -o requirements/main.txt pyproject.toml
-	python3.10 -m piptools compile --extra dev -o requirements/dev.txt pyproject.toml
+	$(PYTHON) -m piptools compile -o requirements/main.txt pyproject.toml
+	$(PYTHON) -m piptools compile --extra dev -o requirements/dev.txt pyproject.toml
 	pip install -r requirements/main.txt -r requirements/dev.txt
 
 update-deps:
 	pip install --upgrade pip-tools pip setuptools
-	python3.10 -m piptools compile --upgrade --resolver backtracking -o requirements/main.txt pyproject.toml
-	python3.10 -m piptools compile --extra dev --upgrade --resolver backtracking -o requirements/dev.txt pyproject.toml
+	$(PYTHON) -m piptools compile --upgrade --resolver backtracking -o requirements/main.txt pyproject.toml
+	$(PYTHON) -m piptools compile --extra dev --upgrade --resolver backtracking -o requirements/dev.txt pyproject.toml
 
 init:
 	pip install --editable .
@@ -17,10 +19,10 @@ update: update-deps init
 
 build:
 	rm -rf dist/
-	python3.10 -m build
+	$(PYTHON) -m build
 
 pypi_publish:
-	python3.10 -m twine upload --repository pypi dist/*
+	$(PYTHON) -m twine upload --repository pypi dist/*
 
 testpypi_publish:
-	python3.10 -m twine upload --repository testpypi dist/*
+	$(PYTHON) -m twine upload --repository testpypi dist/*
