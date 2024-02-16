@@ -4,19 +4,24 @@ import os
 
 from dotenv import load_dotenv
 
-import amplitude_data_wrapper.analytics_api as amp
+import src.amplitude_data_wrapper.analytics_api as amp
 
 # %%
 load_dotenv()
 api_key = os.getenv("AMPLITUDE_EU_PROD_KEY")
 api_secret = os.getenv("AMPLITUDE_EU_PROD_SECRET")
+test_api_key = os.getenv("AMPLITUDE_EU_TEST_KEY")
+test_api_secret = os.getenv("AMPLITUDE_EU_TEST_SECRET")
 email = os.getenv("email")
 chart_id_eu = os.getenv("chart_id_eu")
 example_id_eu = os.getenv("example_id_eu")
 cohort_id_eu = os.getenv("cohort_id_eu")
 # %%
 # without proxy
-r = amp.get_chart(api_key, api_secret, chart_id_eu, region=1)  # region 1 is EU
+r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=1)  # region 1 is EU
+r.status_code
+# %%
+r = amp.get_chart(secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region=1)  # region 1 is EU
 r.status_code
 # %%
 # with proxy
@@ -72,9 +77,33 @@ data = amp.export_project_data(
     region=1,
 )
 # %%
-types = amp.get_all_event_types(api_key=api_key, secret=api_secret, region=1)
+types = amp.get_all_event_types(api_key=test_api_key, secret=test_api_secret, region=1)
 types.status_code  # 200
 types.text  # prints data
+# %%
+# write as json file
+with open("data/test_types.json", "w") as f:
+    json.dump(types.json(), f, ensure_ascii=False)
+# %%
+with open("data/test_types.json") as f:
+    _ = f.read()
+_ = json.loads(_)
+dd = _["data"]
+# %%
+event_types = []
+for i in dd:
+    event_types.append(i["event_type"])
+with open("data/test_event_names.json", "w") as f:
+    json.dump(event_types, f, ensure_ascii=False)
+# %%
+# read event names from txt
+with open("data/test_event_names.txt") as f:
+    _ = [line.rstrip() for line in f]
+
+# %%
+# slett event_type med api
+dtype = amp.delete_event_type(api_key=test_api_key, secret=test_api_secret, event_type="atque maxime ducimus")
+dtype.status_code
 # %%
 # get an event with segments
 our_event_dict = {
@@ -91,3 +120,4 @@ data = amp.get_event_segmentation(
     interval=1,
     limit=1000,
 )
+# %%
