@@ -403,6 +403,42 @@ def get_all_event_types(api_key: str, secret: str, region=1, proxy=""):
     )
     return r
 
+# %% 
+def delete_event_type(api_key: str, secret: str, event_type: str, region=1, proxy=""):
+    """
+    Delete an even type for a project in Amplitude
+
+    See https://www.docs.developers.amplitude.com/analytics/apis/taxonomy-api/#delete-an-event-type
+
+    Parameters
+    ----------
+    api_key: str, required
+        API key for the project in Amplitude
+    secret: str, required
+        API secret for the project in Amplitude
+    event_type: str, required
+        name of the event type to be deleted from the Amplitude project   
+    region: int, optional
+        Region of the data centre. Default is 1 for Europe, and 2 for USA.
+    proxy: dict, optional
+        Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
+
+        Default is no proxy.
+
+    Returns
+    ----------
+    r: requests object with status result
+
+    """
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    url = api_domains
+    r = requests.delete(
+        f"{url[region]}/api/2/taxonomy/event/{event_type}",
+        headers=headers,
+        auth=(api_key, secret),
+        proxies=proxy,
+    )
+    return r
 
 # %%
 def get_event_segmentation(
