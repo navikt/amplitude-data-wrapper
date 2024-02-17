@@ -18,10 +18,14 @@ example_id_eu = os.getenv("example_id_eu")
 cohort_id_eu = os.getenv("cohort_id_eu")
 # %%
 # without proxy
-r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=1)  # region 1 is EU
+r = amp.get_chart(
+    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=1
+)  # region 1 is EU
 r.status_code
 # %%
-r = amp.get_chart(secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region=1)  # region 1 is EU
+r = amp.get_chart(
+    secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region=1
+)  # region 1 is EU
 r.status_code
 # %%
 # with proxy
@@ -102,7 +106,9 @@ with open("data/test_event_names.txt") as f:
 
 # %%
 # slett event_type med api
-dtype = amp.delete_event_type(api_key=test_api_key, secret=test_api_secret, event_type="atque maxime ducimus")
+dtype = amp.delete_event_type(
+    api_key=test_api_key, secret=test_api_secret, event_type="atque maxime ducimus"
+)
 dtype.status_code
 # %%
 # get an event with segments

@@ -403,7 +403,8 @@ def get_all_event_types(api_key: str, secret: str, region=1, proxy=""):
     )
     return r
 
-# %% 
+
+# %%
 def delete_event_type(api_key: str, secret: str, event_type: str, region=1, proxy=""):
     """
     Delete an even type for a project in Amplitude
@@ -417,7 +418,7 @@ def delete_event_type(api_key: str, secret: str, event_type: str, region=1, prox
     secret: str, required
         API secret for the project in Amplitude
     event_type: str, required
-        name of the event type to be deleted from the Amplitude project   
+        name of the event type to be deleted from the Amplitude project
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
     proxy: dict, optional
@@ -439,6 +440,7 @@ def delete_event_type(api_key: str, secret: str, event_type: str, region=1, prox
         proxies=proxy,
     )
     return r
+
 
 # %%
 def get_event_segmentation(

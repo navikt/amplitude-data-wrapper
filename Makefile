@@ -26,3 +26,6 @@ pypi_publish:
 
 testpypi_publish:
 	$(PYTHON) -m twine upload --repository testpypi dist/*
+
+format:
+	black --exclude ^/venv .
