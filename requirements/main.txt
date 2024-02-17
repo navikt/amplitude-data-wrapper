@@ -4,15 +4,15 @@
 #
 #    pip-compile --output-file=requirements/main.txt pyproject.toml
 #
-certifi==2023.5.7
+certifi==2024.2.2
     # via requests
-charset-normalizer==3.1.0
+charset-normalizer==3.3.2
     # via requests
-idna==3.4
+idna==3.6
     # via requests
 requests==2.31.0
     # via amplitude-data-wrapper (pyproject.toml)
-tqdm==4.65.0
+tqdm==4.66.2
     # via amplitude-data-wrapper (pyproject.toml)
-urllib3==2.0.3
+urllib3==2.2.0
     # via requests
