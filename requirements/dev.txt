@@ -8,7 +8,7 @@ appnope==0.1.4
     # via ipykernel
 asttokens==2.4.1
     # via stack-data
-black==24.2.0
+black==24.3.0
     # via amplitude-data-wrapper (pyproject.toml)
 build==1.0.3
     # via pip-tools
