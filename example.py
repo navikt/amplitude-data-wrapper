@@ -70,8 +70,8 @@ tobe_deleted = amp.get_deletion_jobs(
 )
 tobe_deleted.text
 # %%
-start = "20220601T00"
-end = "20220601T01"
+start = "20220501T09"
+end = "20220501T11"
 data = amp.export_project_data(
     start=start,
     end=end,
