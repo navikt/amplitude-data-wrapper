@@ -8,9 +8,11 @@ appnope==0.1.4
     # via ipykernel
 asttokens==2.4.1
     # via stack-data
+backports-tarfile==1.0.0
+    # via jaraco-context
 black==24.3.0
     # via amplitude-data-wrapper (pyproject.toml)
-build==1.1.1
+build==1.2.1
     # via pip-tools
 certifi==2024.2.2
     # via requests
@@ -26,23 +28,27 @@ debugpy==1.8.1
     # via ipykernel
 decorator==5.1.1
     # via ipython
-docutils==0.20.1
+docutils==0.21.1
     # via readme-renderer
 exceptiongroup==1.2.0
     # via ipython
 executing==2.0.1
     # via stack-data
-idna==3.6
+idna==3.7
     # via requests
 importlib-metadata==7.1.0
     # via
     #   keyring
     #   twine
-ipykernel==6.29.3
+ipykernel==6.29.4
     # via amplitude-data-wrapper (pyproject.toml)
-ipython==8.22.2
+ipython==8.23.0
     # via ipykernel
-jaraco-classes==3.3.1
+jaraco-classes==3.4.0
+    # via keyring
+jaraco-context==5.3.0
+    # via keyring
+jaraco-functools==4.0.0
     # via keyring
 jedi==0.19.1
     # via ipython
@@ -52,7 +58,7 @@ jupyter-core==5.7.2
     # via
     #   ipykernel
     #   jupyter-client
-keyring==24.3.1
+keyring==25.1.0
     # via
     #   amplitude-data-wrapper (pyproject.toml)
     #   twine
@@ -65,19 +71,21 @@ matplotlib-inline==0.1.6
 mdurl==0.1.2
     # via markdown-it-py
 more-itertools==10.2.0
-    # via jaraco-classes
+    # via
+    #   jaraco-classes
+    #   jaraco-functools
 mypy-extensions==1.0.0
     # via black
 nest-asyncio==1.6.0
     # via ipykernel
-nh3==0.2.15
+nh3==0.2.17
     # via readme-renderer
 packaging==24.0
     # via
     #   black
     #   build
     #   ipykernel
-parso==0.8.3
+parso==0.8.4
     # via jedi
 pathspec==0.12.1
     # via black
@@ -157,8 +165,10 @@ traitlets==5.14.2
     #   matplotlib-inline
 twine==5.0.0
     # via amplitude-data-wrapper (pyproject.toml)
-typing-extensions==4.10.0
-    # via black
+typing-extensions==4.11.0
+    # via
+    #   black
+    #   ipython
 urllib3==2.2.1
     # via
     #   requests
