@@ -126,7 +126,7 @@ pyzmq==25.1.2
     #   jupyter-client
 readme-renderer==43.0
     # via twine
-requests==2.31.0
+requests==2.32.0
     # via
     #   amplitude-data-wrapper (pyproject.toml)
     #   requests-toolbelt
