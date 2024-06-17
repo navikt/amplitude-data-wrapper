@@ -14,5 +14,5 @@ requests==2.31.0
     # via amplitude-data-wrapper (pyproject.toml)
 tqdm==4.66.2
     # via amplitude-data-wrapper (pyproject.toml)
-urllib3==2.2.1
+urllib3==2.2.2
     # via requests

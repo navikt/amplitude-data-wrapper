@@ -169,7 +169,7 @@ typing-extensions==4.11.0
     # via
     #   black
     #   ipython
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   requests
     #   twine
