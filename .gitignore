@@ -1,6 +1,6 @@
 __pycache__/
 amplitude_data_wrapper.egg-info/
-venv*
+.venv*
 testing/
 dist/
 data/
