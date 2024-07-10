@@ -8,13 +8,13 @@ appnope==0.1.4
     # via ipykernel
 asttokens==2.4.1
     # via stack-data
-backports-tarfile==1.0.0
+backports-tarfile==1.2.0
     # via jaraco-context
-black==24.3.0
+black==24.4.2
     # via amplitude-data-wrapper (pyproject.toml)
 build==1.2.1
     # via pip-tools
-certifi==2024.2.2
+certifi==2024.7.4
     # via requests
 charset-normalizer==3.3.2
     # via requests
@@ -24,63 +24,69 @@ click==8.1.7
     #   pip-tools
 comm==0.2.2
     # via ipykernel
-debugpy==1.8.1
+debugpy==1.8.2
     # via ipykernel
 decorator==5.1.1
     # via ipython
-docutils==0.21.1
+docutils==0.21.2
     # via readme-renderer
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via ipython
 executing==2.0.1
     # via stack-data
 idna==3.7
     # via requests
-importlib-metadata==7.1.0
+importlib-metadata==8.0.0
     # via
     #   keyring
     #   twine
-ipykernel==6.29.4
+ipykernel==6.29.5
     # via amplitude-data-wrapper (pyproject.toml)
-ipython==8.23.0
+ipython==8.26.0
     # via ipykernel
+isort==5.13.2
+    # via amplitude-data-wrapper (pyproject.toml)
 jaraco-classes==3.4.0
     # via keyring
 jaraco-context==5.3.0
     # via keyring
-jaraco-functools==4.0.0
+jaraco-functools==4.0.1
     # via keyring
 jedi==0.19.1
     # via ipython
-jupyter-client==8.6.1
+jupyter-client==8.6.2
     # via ipykernel
 jupyter-core==5.7.2
     # via
     #   ipykernel
     #   jupyter-client
-keyring==25.1.0
+keyring==25.2.1
     # via
     #   amplitude-data-wrapper (pyproject.toml)
     #   twine
 markdown-it-py==3.0.0
     # via rich
-matplotlib-inline==0.1.6
+matplotlib-inline==0.1.7
     # via
     #   ipykernel
     #   ipython
 mdurl==0.1.2
     # via markdown-it-py
-more-itertools==10.2.0
+more-itertools==10.3.0
     # via
     #   jaraco-classes
     #   jaraco-functools
+mypy==1.10.1
+    # via amplitude-data-wrapper (pyproject.toml)
 mypy-extensions==1.0.0
-    # via black
+    # via
+    #   black
+    #   mypy
 nest-asyncio==1.6.0
     # via ipykernel
-nh3==0.2.17
+nh3==0.2.18
     # via readme-renderer
-packaging==24.0
+packaging==24.1
     # via
     #   black
     #   build
@@ -95,24 +101,24 @@ pip-tools==7.4.1
     # via amplitude-data-wrapper (pyproject.toml)
 pkginfo==1.10.0
     # via twine
-platformdirs==4.2.0
+platformdirs==4.2.2
     # via
     #   black
     #   jupyter-core
-prompt-toolkit==3.0.43
+prompt-toolkit==3.0.47
     # via ipython
-psutil==5.9.8
+psutil==6.0.0
     # via ipykernel
 ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-pygments==2.17.2
+pygments==2.18.0
     # via
     #   ipython
     #   readme-renderer
     #   rich
-pyproject-hooks==1.0.0
+pyproject-hooks==1.1.0
     # via
     #   build
     #   pip-tools
@@ -120,13 +126,13 @@ python-dateutil==2.9.0.post0
     # via jupyter-client
 python-dotenv==1.0.1
     # via amplitude-data-wrapper (pyproject.toml)
-pyzmq==25.1.2
+pyzmq==26.0.3
     # via
     #   ipykernel
     #   jupyter-client
-readme-renderer==43.0
+readme-renderer==44.0
     # via twine
-requests==2.31.0
+requests==2.32.3
     # via
     #   amplitude-data-wrapper (pyproject.toml)
     #   requests-toolbelt
@@ -147,15 +153,15 @@ tomli==2.0.1
     # via
     #   black
     #   build
+    #   mypy
     #   pip-tools
-    #   pyproject-hooks
-tornado==6.4
+tornado==6.4.1
     # via
     #   ipykernel
     #   jupyter-client
-tqdm==4.66.2
+tqdm==4.66.4
     # via amplitude-data-wrapper (pyproject.toml)
-traitlets==5.14.2
+traitlets==5.14.3
     # via
     #   comm
     #   ipykernel
@@ -163,13 +169,14 @@ traitlets==5.14.2
     #   jupyter-client
     #   jupyter-core
     #   matplotlib-inline
-twine==5.0.0
+twine==5.1.1
     # via amplitude-data-wrapper (pyproject.toml)
-typing-extensions==4.11.0
+typing-extensions==4.12.2
     # via
     #   black
     #   ipython
-urllib3==2.2.1
+    #   mypy
+urllib3==2.2.2
     # via
     #   requests
     #   twine
@@ -177,7 +184,7 @@ wcwidth==0.2.13
     # via prompt-toolkit
 wheel==0.43.0
     # via pip-tools
-zipp==3.18.1
+zipp==3.19.2
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

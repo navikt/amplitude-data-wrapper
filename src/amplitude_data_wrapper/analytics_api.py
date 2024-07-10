@@ -1,11 +1,13 @@
 # %%
-from tqdm.auto import tqdm
-import requests
+import json
 import logging
 import time
-import json
+from typing import Any
+
+import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+from tqdm.auto import tqdm
+from urllib3.util import Retry
 
 logging.basicConfig(level=logging.INFO)
 # %%
@@ -13,7 +15,7 @@ api_domains = {1: "https://analytics.eu.amplitude.com", 2: "https://amplitude.co
 
 
 # %%
-def get_chart(api_key="", secret="", chart_id="", region=1, proxy=""):
+def get_chart(api_key: str, secret: str, chart_id: str, proxy: dict | None = None, region: int = 1):
     """
     Get data for an existing chart in Amplitude
 
@@ -29,7 +31,7 @@ def get_chart(api_key="", secret="", chart_id="", region=1, proxy=""):
         The ID of the chart. For example  https://analytics.amplitude.com/demo/chart/abc123
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -51,7 +53,7 @@ def get_chart(api_key="", secret="", chart_id="", region=1, proxy=""):
 
 
 # %%
-def find_user(user: str, api_key: str, secret: str, region=1, proxy=""):
+def find_user(user: str, api_key: str, secret: str, proxy: dict | None = None, region: int = 1):
     """
     Find the Amplitude ID for a user based on a type of ID, for example Device ID or User ID.
 
@@ -67,7 +69,7 @@ def find_user(user: str, api_key: str, secret: str, region=1, proxy=""):
         API secret for the project in Amplitude
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -89,7 +91,15 @@ def find_user(user: str, api_key: str, secret: str, region=1, proxy=""):
 
 
 # %%
-def get_cohort(api_key, api_secret, cohort_id, filename, props=0, region=1, proxy=""):
+def get_cohort(
+    api_key: str,
+    api_secret: str,
+    cohort_id: str,
+    filename: str,
+    proxy: dict | None = None,
+    props: int = 0,
+    region: int = 1,
+):
     """
     Downloads a cohort of users from Amplitude
 
@@ -109,7 +119,7 @@ def get_cohort(api_key, api_secret, cohort_id, filename, props=0, region=1, prox
         Path and filename to store the results
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -138,7 +148,7 @@ def get_cohort(api_key, api_secret, cohort_id, filename, props=0, region=1, prox
     print("JSON Response")
     for key, value in json_response.items():
         print(key, ":", value, "\n")
-    header_status = ""
+    header_status = 0
     request_id = json_response["request_id"]
     while header_status != 200:
         status_response = s.get(
@@ -193,14 +203,15 @@ def get_cohort(api_key, api_secret, cohort_id, filename, props=0, region=1, prox
 
 # %%
 def delete_user_data(
-    deletion_list,
-    email,
-    api_key,
-    secret,
-    region=1,
-    proxy="",
-    ignore_invalid_id=True,
-    delete_from_org=False,
+    deletion_list: list,
+    user_ids: list,
+    email: str,
+    api_key: str,
+    secret: str,
+    proxy: dict | None = None,
+    region: int = 1,
+    ignore_invalid_id: bool = False,
+    delete_from_org: bool = False,
 ):
     """
     Delete user data for one or more users
@@ -223,7 +234,7 @@ def delete_user_data(
         delete from the entire org rather than just this project. Can only be used with portfolio orgs (have the Portfolio feature enabled) and with user ids only. Values can be either 'True' or 'False' and by default it is set to False
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -236,8 +247,9 @@ def delete_user_data(
     url = api_domains
     r = requests.post(
         f"{url[region]}/api/2/deletions/users",
-        params={
+        data={
             "amplitude_ids": deletion_list,
+            "user_ids": user_ids,
             "requester": email,
             "ignore_invalid_id": ignore_invalid_id,
             "delete_from_org": delete_from_org,
@@ -252,7 +264,7 @@ def delete_user_data(
 
 # %%
 def get_deletion_jobs(
-    start: str, end: str, api_key: str, secret: str, region=1, proxy=""
+    start: str, end: str, api_key: str, secret: str, proxy: dict | None = None, region: int = 1
 ):
     """
     Get an overview of all deletion jobs in Amplitude
@@ -271,7 +283,7 @@ def get_deletion_jobs(
         API secret for the project in Amplitude
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -293,7 +305,15 @@ def get_deletion_jobs(
 
 
 # %%
-def export_project_data(start, end, api_key, secret, filename, region=1, proxy=""):
+def export_project_data(
+    start: str,
+    end: str,
+    api_key: str,
+    secret: str,
+    filename: str,
+    proxy: dict | None = None,
+    region: int = 1,
+):
     """
     Download all project data from an Amplitude project for a time period, max 365 days per request
 
@@ -311,7 +331,7 @@ def export_project_data(start, end, api_key, secret, filename, region=1, proxy="
         API secret for the project in Amplitude
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -335,7 +355,7 @@ def export_project_data(start, end, api_key, secret, filename, region=1, proxy="
     )
     print(f"Export request submitted")
     response.raise_for_status()
-    header_status = ""
+    header_status = 0
     while header_status != 200:
         print(f"Waiting for response")
         if response.status_code == 400:
@@ -370,7 +390,7 @@ def export_project_data(start, end, api_key, secret, filename, region=1, proxy="
 
 
 # %%
-def get_all_event_types(api_key: str, secret: str, region=1, proxy=""):
+def get_all_event_types(api_key: str, secret: str, proxy: dict | None = None, region: int = 1):
     """
     Get a list of all event-types for a project in Amplitude
 
@@ -384,7 +404,7 @@ def get_all_event_types(api_key: str, secret: str, region=1, proxy=""):
         API secret for the project in Amplitude
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -405,7 +425,9 @@ def get_all_event_types(api_key: str, secret: str, region=1, proxy=""):
 
 
 # %%
-def delete_event_type(api_key: str, secret: str, event_type: str, region=1, proxy=""):
+def delete_event_type(
+    api_key: str, secret: str, event_type: str, proxy: dict | None = None, region: int = 1
+):
     """
     Delete an even type for a project in Amplitude
 
@@ -421,7 +443,7 @@ def delete_event_type(api_key: str, secret: str, event_type: str, region=1, prox
         name of the event type to be deleted from the Amplitude project
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
@@ -444,17 +466,17 @@ def delete_event_type(api_key: str, secret: str, event_type: str, region=1, prox
 
 # %%
 def get_event_segmentation(
-    api_key,
-    secret,
-    start,
-    end,
-    event,
-    metrics="uniques",
-    interval=1,
-    segment=None,
-    group=None,
-    limit=100,
-    region=1,
+    api_key: str,
+    secret: str,
+    start: str,
+    end: str,
+    event: dict,
+    metrics: Any,
+    interval: int = 1,
+    segment: Any = None,
+    group: Any = None,
+    limit: int = 100,
+    region: int = 1,
 ):
     """
     Get metrics for an event with segmentation
@@ -485,7 +507,7 @@ def get_event_segmentation(
         group by
     limit: int
         Number of rows. Default is 100, max is 1000.
-    proxy: dict, optional
+    proxy: dict | None = None, optional
         Set proxy with custom domain and path. Example: {"http": "http://myproxy.example.org/path"}
 
         Default is no proxy.
