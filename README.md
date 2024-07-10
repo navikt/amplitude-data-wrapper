@@ -39,28 +39,31 @@ Get data from EU account by setting `region=1`.
 ```python
 import amplitude_data_wrapper.analytics_api as amp
 
-r = amp.get_chart(chart_id, api_key, api_secret, region=1)
-r.status_code  # 200
-r.text # print data
+# without proxy
+r = amp.get_chart(
+    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=1
+)  # region 1 is EU
+r.status_code
+r.json() # returns data as json
 ```
 
 Get data from US account by setting `region=2`.
 
 ```python
-
-r = amp.get_chart(chart_id, api_key, api_secret, region=2)
-r.status_code  # 200
-r.text # print data
+r = amp.get_chart(
+    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=2
+)  # region 2 is USA
+r.json() # returns data as json
 ```
 
 Get data from EU account with a proxy by setting region and proxy using a dictionary.
 
 ```python
 
-proxies = {"http": "http://myproxy.domain.org/path"}
-r = amp.get_chart(chart_id, api_key, api_secret, region=1, proxy=proxies)
-r.status_code  # 200
-r.text # print data
+# with proxy
+proxies = {"http": "http://myproxy.example.org/method"}
+r = amp.get_chart(api_key, api_secret, chart_id_eu, region=1, proxy=proxies)
+r.status_code  # print status code
 ```
 
 [Event segmentation](https://developers.amplitude.com/docs/dashboard-rest-api#event-segmentation) lets you export events with segments and filters.
