@@ -1,11 +1,12 @@
 # %%
-from tqdm.auto import tqdm
-import requests
+import json
 import logging
 import time
-import json
+
+import requests
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+from tqdm.auto import tqdm
+from urllib3.util import Retry
 
 logging.basicConfig(level=logging.INFO)
 # %%
