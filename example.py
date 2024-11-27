@@ -23,7 +23,7 @@ r = amp.get_chart(
 )  # region 1 is EU
 r.status_code
 # %%
-r.json() # returns data as json
+r.json()  # returns data as json
 # %%
 r = amp.get_chart(
     secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region=1
@@ -35,7 +35,7 @@ proxies = {"http": "http://myproxy.example.org/method"}
 r = amp.get_chart(api_key, api_secret, chart_id_eu, region=1, proxy=proxies)
 r.status_code  # print status code
 # %%
-r.json() # print data as json
+r.json()  # print data as json
 # %%
 user = amp.find_user(user=example_id_eu, api_key=api_key, secret=api_secret, region=1)
 user.text  # print data
@@ -127,3 +127,4 @@ data = amp.get_event_segmentation(
     limit=1000,
 )
 # %%
+data.json() # print data as json

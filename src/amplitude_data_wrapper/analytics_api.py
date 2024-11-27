@@ -15,7 +15,9 @@ api_domains = {1: "https://analytics.eu.amplitude.com", 2: "https://amplitude.co
 
 
 # %%
-def get_chart(api_key: str, secret: str, chart_id: str, proxy: dict | None = None, region: int = 1):
+def get_chart(
+    api_key: str, secret: str, chart_id: str, proxy: dict | None = None, region: int = 1
+) -> requests.Response:
     """
     Get data for an existing chart in Amplitude
 
@@ -53,7 +55,9 @@ def get_chart(api_key: str, secret: str, chart_id: str, proxy: dict | None = Non
 
 
 # %%
-def find_user(user: str, api_key: str, secret: str, proxy: dict | None = None, region: int = 1):
+def find_user(
+    user: str, api_key: str, secret: str, proxy: dict | None = None, region: int = 1
+) -> requests.Response:
     """
     Find the Amplitude ID for a user based on a type of ID, for example Device ID or User ID.
 
@@ -99,7 +103,7 @@ def get_cohort(
     proxy: dict | None = None,
     props: int = 0,
     region: int = 1,
-):
+) -> str:
     """
     Downloads a cohort of users from Amplitude
 
@@ -116,7 +120,7 @@ def get_cohort(
     props: int, required
         Set to 0 if you only want Amplitude IDs, or 1 if you want more user data
     filename: str, required
-        Path and filename to store the results
+        Path and filename to store the results. Example: "data/cohortdata.csv"
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
     proxy: dict | None = None, optional
@@ -126,9 +130,8 @@ def get_cohort(
 
     Returns
     ---------
-    filename: a csv containing data for the cohort
+    filename: path filename as a string to a csv containing data for the cohort
     """
-    cohort_data = filename
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
     s = requests.Session()
     retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
@@ -182,11 +185,11 @@ def get_cohort(
             file_download.raise_for_status()
             print(f"{file_download.headers}")
             with tqdm.wrapattr(
-                open(cohort_data, "wb"),
+                open(filename, "wb"),
                 "write",
                 miniters=1,
                 total=int(file_download.headers.get("content-length", 0)),
-                desc=cohort_data,
+                desc=filename,
             ) as fout:
                 print(file_download.headers)
                 for chunk in file_download.iter_content(chunk_size=8192):
@@ -198,7 +201,7 @@ def get_cohort(
             )
             time.sleep(10)
 
-    return cohort_data
+    return filename
 
 
 # %%
@@ -212,7 +215,7 @@ def delete_user_data(
     region: int = 1,
     ignore_invalid_id: bool = False,
     delete_from_org: bool = False,
-):
+) -> requests.Response:
     """
     Delete user data for one or more users
 
@@ -264,8 +267,13 @@ def delete_user_data(
 
 # %%
 def get_deletion_jobs(
-    start: str, end: str, api_key: str, secret: str, proxy: dict | None = None, region: int = 1
-):
+    start: str,
+    end: str,
+    api_key: str,
+    secret: str,
+    proxy: dict | None = None,
+    region: int = 1,
+) -> requests.Response:
     """
     Get an overview of all deletion jobs in Amplitude
 
@@ -313,7 +321,7 @@ def export_project_data(
     filename: str,
     proxy: dict | None = None,
     region: int = 1,
-):
+) -> str:
     """
     Download all project data from an Amplitude project for a time period, max 365 days per request
 
@@ -329,6 +337,8 @@ def export_project_data(
         API key for the project in Amplitude
     secret: str, required
         API secret for the project in Amplitude
+    filename: str, required
+        filename and path to the project data. Example: "data/projectdata.zip"
     region: int, optional
         Region of the data centre. Default is 1 for Europe, and 2 for USA.
     proxy: dict | None = None, optional
@@ -339,9 +349,9 @@ def export_project_data(
 
     Returns
     ----------
-    projectdata: zip-file containing multiple gzip files, one for each hour
+    filename: zip-file containing multiple gzip files, one for each hour
     """
-    projectdata = filename
+    filename = filename
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
     urls = api_domains
     s = requests.Session()
@@ -373,11 +383,11 @@ def export_project_data(
         elif response.status_code == 200:
             print(f"Success. downloading file as {filename}")
             with tqdm.wrapattr(
-                open(projectdata, "wb"),
+                open(filename, "wb"),
                 "write",
                 miniters=1,
                 total=int(response.headers.get("content-length", 0)),
-                desc=projectdata,
+                desc=filename,
             ) as fout:
                 print(response.headers)
                 for chunk in response.iter_content(chunk_size=8192):
@@ -386,11 +396,13 @@ def export_project_data(
         else:
             print(f"Some other error occurred. Retrying again in 10 seconds.")
             time.sleep(10)
-    return projectdata
+    return filename
 
 
 # %%
-def get_all_event_types(api_key: str, secret: str, proxy: dict | None = None, region: int = 1):
+def get_all_event_types(
+    api_key: str, secret: str, proxy: dict | None = None, region: int = 1
+) -> requests.Response:
     """
     Get a list of all event-types for a project in Amplitude
 
@@ -426,8 +438,12 @@ def get_all_event_types(api_key: str, secret: str, proxy: dict | None = None, re
 
 # %%
 def delete_event_type(
-    api_key: str, secret: str, event_type: str, proxy: dict | None = None, region: int = 1
-):
+    api_key: str,
+    secret: str,
+    event_type: str,
+    proxy: dict | None = None,
+    region: int = 1,
+) -> requests.Response:
     """
     Delete an even type for a project in Amplitude
 
@@ -477,7 +493,7 @@ def get_event_segmentation(
     group: Any = None,
     limit: int = 100,
     region: int = 1,
-):
+) -> requests.Response:
     """
     Get metrics for an event with segmentation
 
