@@ -254,7 +254,7 @@ def delete_user_data(
         auth=(api_key, secret),
         proxies=proxy,
     )
-    print(f"Sletter brukere")
+    logging.info("Sletter brukere")
     return r
 
 
