@@ -356,25 +356,19 @@ def export_project_data(
         stream=True,
         proxies=proxy,
     )
-    print(f"Export request submitted")
+    logging.info("Export request submitted")
     response.raise_for_status()
     header_status = 0
     while header_status != 200:
-        print(f"Waiting for response")
+        logging.info("Waiting for response")
         if response.status_code == 400:
-            print(
-                f"The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB."
-            )
+            logging.info("The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB.")
         elif response.status_code == 404:
-            print(
-                f"Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server."
-            )
+            logging.info("Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server.")
         elif response.status_code == 504:
-            print(
-                f"The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended."
-            )
+            logging.info("The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended.")
         elif response.status_code == 200:
-            print(f"Success. downloading file as {filename}")
+            logging.info("Success. Downloading file as %s", filename)
             with tqdm.wrapattr(
                 open(filename, "wb"),
                 "write",
@@ -382,12 +376,11 @@ def export_project_data(
                 total=int(response.headers.get("content-length", 0)),
                 desc=filename,
             ) as fout:
-                print(response.headers)
                 for chunk in response.iter_content(chunk_size=8192):
                     fout.write(chunk)
             header_status = 200
         else:
-            print(f"Some other error occurred. Retrying again in 10 seconds.")
+            logging.ERROR("Some other error occurred. Retrying again in 10 seconds.")
             time.sleep(10)
     return filename
 
