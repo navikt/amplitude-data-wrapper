@@ -51,6 +51,7 @@ def get_chart(
         auth=(api_key, secret),
         proxies=proxy,
     )
+    logging.info("Success. Retrieved data for chart_id %s", chart_id)
     return r
 
 
@@ -91,6 +92,7 @@ def find_user(
         auth=(api_key, secret),
         proxies=proxy,
     )
+    logging.info("Success. Found user %s", user)
     return r
 
 
