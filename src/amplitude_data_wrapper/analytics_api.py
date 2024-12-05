@@ -148,9 +148,8 @@ def get_cohort(
     )
     response.raise_for_status()
     json_response = response.json()
-    print("JSON Response")
     for key, value in json_response.items():
-        print(key, ":", value, "\n")
+        logging.info("%s : %s", key, value)
     header_status = 0
     request_id = json_response["request_id"]
     while header_status != 200:
@@ -165,15 +164,11 @@ def get_cohort(
         status_response.raise_for_status()
 
         if status_response.status_code == 202:
-            print(f"Waiting for {request_id} to be completed. Current status:")
-            print(f"{status_response.headers}")
-            json_status = status_response.json()
-            for key, value in json_status.items():
-                print(key, ":", value, "\n")
+            logging.info("Waiting for request_id %s to be completed", request_id)
             time.sleep(5)
         elif status_response.status_code == 200:
             download_url = f"{url[region]}/api/5/cohorts/request/{request_id}/file"
-            print(f"Downloading from {download_url}")
+            logging.info("Downloading from %s", download_url)
             file_download = s.get(
                 download_url,
                 headers=headers,
@@ -183,7 +178,6 @@ def get_cohort(
                 proxies=proxy,
             )
             file_download.raise_for_status()
-            print(f"{file_download.headers}")
             with tqdm.wrapattr(
                 open(filename, "wb"),
                 "write",
@@ -191,12 +185,11 @@ def get_cohort(
                 total=int(file_download.headers.get("content-length", 0)),
                 desc=filename,
             ) as fout:
-                print(file_download.headers)
                 for chunk in file_download.iter_content(chunk_size=8192):
                     fout.write(chunk)
             header_status = 200
         else:
-            print(
+            logging.ERROR(
                 f"An error occurred, retrying to reach request ID {request_id} and request URL {download_url} in 10 seconds"
             )
             time.sleep(10)
