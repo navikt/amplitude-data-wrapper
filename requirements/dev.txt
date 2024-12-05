@@ -6,7 +6,7 @@
 #
 appnope==0.1.4
     # via ipykernel
-asttokens==2.4.1
+asttokens==3.0.0
     # via stack-data
 backports-tarfile==1.2.0
     # via jaraco-context
@@ -37,12 +37,10 @@ executing==2.1.0
 idna==3.10
     # via requests
 importlib-metadata==8.5.0
-    # via
-    #   keyring
-    #   twine
+    # via keyring
 ipykernel==6.29.5
     # via amplitude-data-wrapper (pyproject.toml)
-ipython==8.29.0
+ipython==8.30.0
     # via ipykernel
 isort==5.13.2
     # via amplitude-data-wrapper (pyproject.toml)
@@ -84,13 +82,14 @@ mypy-extensions==1.0.0
     #   mypy
 nest-asyncio==1.6.0
     # via ipykernel
-nh3==0.2.18
+nh3==0.2.19
     # via readme-renderer
 packaging==24.2
     # via
     #   black
     #   build
     #   ipykernel
+    #   twine
 parso==0.8.4
     # via jedi
 pathspec==0.12.1
@@ -99,7 +98,7 @@ pexpect==4.9.0
     # via ipython
 pip-tools==7.4.1
     # via amplitude-data-wrapper (pyproject.toml)
-pkginfo==1.10.0
+pkginfo==1.12.0
     # via twine
 platformdirs==4.3.6
     # via
@@ -143,13 +142,11 @@ rfc3986==2.0.0
     # via twine
 rich==13.9.4
     # via twine
-six==1.16.0
-    # via
-    #   asttokens
-    #   python-dateutil
+six==1.17.0
+    # via python-dateutil
 stack-data==0.6.3
     # via ipython
-tomli==2.1.0
+tomli==2.2.1
     # via
     #   black
     #   build
@@ -169,7 +166,7 @@ traitlets==5.14.3
     #   jupyter-client
     #   jupyter-core
     #   matplotlib-inline
-twine==5.1.1
+twine==6.0.1
     # via amplitude-data-wrapper (pyproject.toml)
 typing-extensions==4.12.2
     # via
