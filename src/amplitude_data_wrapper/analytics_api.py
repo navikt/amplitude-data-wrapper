@@ -51,6 +51,7 @@ def get_chart(
         auth=(api_key, secret),
         proxies=proxy,
     )
+    logging.info("Success. Retrieved data for chart_id %s", chart_id)
     return r
 
 
@@ -91,6 +92,7 @@ def find_user(
         auth=(api_key, secret),
         proxies=proxy,
     )
+    logging.info("Success. Found user %s", user)
     return r
 
 
@@ -148,9 +150,8 @@ def get_cohort(
     )
     response.raise_for_status()
     json_response = response.json()
-    print("JSON Response")
     for key, value in json_response.items():
-        print(key, ":", value, "\n")
+        logging.info("%s : %s", key, value)
     header_status = 0
     request_id = json_response["request_id"]
     while header_status != 200:
@@ -165,15 +166,11 @@ def get_cohort(
         status_response.raise_for_status()
 
         if status_response.status_code == 202:
-            print(f"Waiting for {request_id} to be completed. Current status:")
-            print(f"{status_response.headers}")
-            json_status = status_response.json()
-            for key, value in json_status.items():
-                print(key, ":", value, "\n")
+            logging.info("Waiting for request_id %s to be completed", request_id)
             time.sleep(5)
         elif status_response.status_code == 200:
             download_url = f"{url[region]}/api/5/cohorts/request/{request_id}/file"
-            print(f"Downloading from {download_url}")
+            logging.info("Downloading from %s", download_url)
             file_download = s.get(
                 download_url,
                 headers=headers,
@@ -183,7 +180,6 @@ def get_cohort(
                 proxies=proxy,
             )
             file_download.raise_for_status()
-            print(f"{file_download.headers}")
             with tqdm.wrapattr(
                 open(filename, "wb"),
                 "write",
@@ -191,12 +187,11 @@ def get_cohort(
                 total=int(file_download.headers.get("content-length", 0)),
                 desc=filename,
             ) as fout:
-                print(file_download.headers)
                 for chunk in file_download.iter_content(chunk_size=8192):
                     fout.write(chunk)
             header_status = 200
         else:
-            print(
+            logging.error(
                 f"An error occurred, retrying to reach request ID {request_id} and request URL {download_url} in 10 seconds"
             )
             time.sleep(10)
@@ -261,7 +256,7 @@ def delete_user_data(
         auth=(api_key, secret),
         proxies=proxy,
     )
-    print(f"Sletter brukere")
+    logging.info("Sletter brukere")
     return r
 
 
@@ -363,25 +358,19 @@ def export_project_data(
         stream=True,
         proxies=proxy,
     )
-    print(f"Export request submitted")
+    logging.info("Export request submitted")
     response.raise_for_status()
     header_status = 0
     while header_status != 200:
-        print(f"Waiting for response")
+        logging.info("Waiting for response")
         if response.status_code == 400:
-            print(
-                f"The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB."
-            )
+            logging.info("The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB.")
         elif response.status_code == 404:
-            print(
-                f"Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server."
-            )
+            logging.info("Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server.")
         elif response.status_code == 504:
-            print(
-                f"The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended."
-            )
+            logging.info("The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended.")
         elif response.status_code == 200:
-            print(f"Success. downloading file as {filename}")
+            logging.info("Success. Downloading file as %s", filename)
             with tqdm.wrapattr(
                 open(filename, "wb"),
                 "write",
@@ -389,12 +378,11 @@ def export_project_data(
                 total=int(response.headers.get("content-length", 0)),
                 desc=filename,
             ) as fout:
-                print(response.headers)
                 for chunk in response.iter_content(chunk_size=8192):
                     fout.write(chunk)
             header_status = 200
         else:
-            print(f"Some other error occurred. Retrying again in 10 seconds.")
+            logging.error("Some other error occurred. Retrying again in 10 seconds.")
             time.sleep(10)
     return filename
 
