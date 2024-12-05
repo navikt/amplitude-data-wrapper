@@ -191,7 +191,7 @@ def get_cohort(
                     fout.write(chunk)
             header_status = 200
         else:
-            logging.ERROR(
+            logging.error(
                 f"An error occurred, retrying to reach request ID {request_id} and request URL {download_url} in 10 seconds"
             )
             time.sleep(10)
@@ -382,7 +382,7 @@ def export_project_data(
                     fout.write(chunk)
             header_status = 200
         else:
-            logging.ERROR("Some other error occurred. Retrying again in 10 seconds.")
+            logging.error("Some other error occurred. Retrying again in 10 seconds.")
             time.sleep(10)
     return filename
 
