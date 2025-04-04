@@ -23,13 +23,16 @@ install:
 update:
     uv lock --upgrade
 
-# check and format with ruff
+# check code with ruff
+check:
+    ruff check
+
+# format with ruff
 format:
-    ruff check; \
     ruff format
 
 # build package
-build:
+build: check format
 	rm -rf dist/; \
 	uv build
 
