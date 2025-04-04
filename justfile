@@ -29,7 +29,7 @@ build:
 	uv build
 
 # test package can be installed and imported
-test-install:
+package-test:
     uv run --with {{PYPI_PROJECT}} --no-project -- python -c "import {{IMPORT_PROJECT}}"
 
 # publish on python package index
