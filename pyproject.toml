@@ -17,10 +17,8 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ipykernel>=6.29.5",
-    "keyring>=25.6.0",
     "python-dotenv>=1.1.0",
     "ruff>=0.11.3",
-    "twine>=6.1.0",
 ]
 
 [project.urls]
