@@ -9,42 +9,20 @@ readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["amplitude"]
 license = {file = "LICENSE"}
-
 dependencies = [
-    "requests",
-    "tqdm"
+    "requests>=2.32.3",
+    "tqdm>=4.67.1",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "ipykernel",
-    "python-dotenv",
-    "black",
-    "twine",
-    "keyring",
-    "pip-tools",
-    "mypy",
-    "isort"
+    "ipykernel>=6.29.5",
+    "keyring>=25.6.0",
+    "python-dotenv>=1.1.0",
+    "ruff>=0.11.3",
+    "twine>=6.1.0",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/navikt/amplitude-data-wrapper"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-exclude = ["tests", "testing"]
-
-[build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
-
-[tool.mypy]
-ignore_missing_imports = true
-
-[tool.isort]
-profile = "black"
-src_paths=["src/taskanalytics_data_wrapper"]
-sections=["FUTURE","STDLIB","THIRDPARTY","FIRSTPARTY","LOCALFOLDER"]
