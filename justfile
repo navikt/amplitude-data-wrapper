@@ -32,7 +32,7 @@ format:
     ruff format
 
 # build package
-build: check format
+build: check format package-test
 	rm -rf dist/; \
 	uv build
 
