@@ -26,8 +26,14 @@ See examples below and in [example.py](example.py)
 
 Install with
 
-```
+```bash
 pip install amplitude-data-wrapper
+```
+
+or
+
+```bash
+uv add amplitude-data-wrapper
 ```
 
 ### Dashboard Rest API
