@@ -127,4 +127,4 @@ data = amp.get_event_segmentation(
     limit=1000,
 )
 # %%
-data.json() # print data as json
+data.json()  # print data as json
