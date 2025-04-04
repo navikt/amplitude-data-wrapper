@@ -1,3 +1,5 @@
+PYPI_PROJECT := "amplitude-data-wrapper"
+IMPORT_PROJECT := "amplitude_data_wrapper"
 
 # justfile
 default:
@@ -21,8 +23,12 @@ build:
 	rm -rf dist/; \
 	uv build
 
+test-install:
+    uv run --with {{PYPI_PROJECT}} --no-project -- python -c "import {{IMPORT_PROJECT}}"
+
 pypi_publish:
 	$(PYTHON) -m twine upload --repository pypi dist/*
 
+# $(PYTHON) -m twine upload --repository testpypi dist/*
 testpypi_publish:
-	$(PYTHON) -m twine upload --repository testpypi dist/*
+    uv publish --index testpypi
