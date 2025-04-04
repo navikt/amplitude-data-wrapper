@@ -364,11 +364,17 @@ def export_project_data(
     while header_status != 200:
         logging.info("Waiting for response")
         if response.status_code == 400:
-            logging.info("The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB.")
+            logging.info(
+                "The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB."
+            )
         elif response.status_code == 404:
-            logging.info("Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server.")
+            logging.info(
+                "Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server."
+            )
         elif response.status_code == 504:
-            logging.info("The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended.")
+            logging.info(
+                "The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended."
+            )
         elif response.status_code == 200:
             logging.info("Success. Downloading file as %s", filename)
             with tqdm.wrapattr(
