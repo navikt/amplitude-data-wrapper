@@ -7,23 +7,28 @@ PYPI_TOKEN := env('PYPI_TOKEN')
 PYPI_PROJECT := "amplitude-data-wrapper"
 IMPORT_PROJECT := "amplitude_data_wrapper"
 
-# justfile
+# list recipes
 default:
     just --list
 
+# install and run
 run:
     uv run
 
+# install dependencies
 install:
     uv sync --frozen
 
+# upgrade dependencies
 update:
     uv lock --upgrade
 
+# check and format with ruff
 format:
     ruff check; \
     ruff format
 
+# build package
 build:
 	rm -rf dist/; \
 	uv build
