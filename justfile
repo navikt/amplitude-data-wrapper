@@ -8,7 +8,7 @@ PYPI_PROJECT := "amplitude-data-wrapper"
 IMPORT_PROJECT := "amplitude_data_wrapper"
 
 # list recipes
-default:
+@default:
     just --list
 
 # install and run
