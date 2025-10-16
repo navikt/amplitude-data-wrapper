@@ -1,6 +1,6 @@
 [project]
 name = "amplitude-data-wrapper"
-version = "0.5.4"
+version = "0.5.5"
 description = "python wrapper for using the amplitude analytics and taxonomy APIs"
 authors = [
     {name = "Tobias McVey", email = "tobias.mcvey@nav.no"},
