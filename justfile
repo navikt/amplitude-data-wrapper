@@ -12,38 +12,38 @@ IMPORT_PROJECT := "amplitude_data_wrapper"
     just --list
 
 # install and run
-run:
+@run:
     uv run
 
 # install dependencies
-install:
+@install:
     uv sync --frozen
 
 # upgrade dependencies
-update:
+@update:
     uv lock --upgrade
 
 # check code with ruff
-check:
+@check:
     ruff check
 
 # format with ruff
-format:
+@format:
     ruff format
 
 # build package
-build: check format package-test
+@build: check format package-test
 	rm -rf dist/; \
 	uv build
 
 # test package can be installed and imported
-package-test:
+@package-test:
     uv run --with {{PYPI_PROJECT}} --no-project -- python -c "import {{IMPORT_PROJECT}}"
 
 # publish on python package index
-pypi_publish:
+@pypi_publish:
     uv publish --token {{PYPI_TOKEN}}
 
 # publish on test python package index
-testpypi_publish:
+@testpypi_publish:
     uv publish --index testpypi --token {{TESTPYPI_TOKEN}}
