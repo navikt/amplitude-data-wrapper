@@ -41,25 +41,25 @@ uv add amplitude-data-wrapper
 
 [Results from an existing chart](https://developers.amplitude.com/docs/dashboard-rest-api#results-from-an-existing-chart)
 
-Get data from EU account by setting `region=1`.
+Get data from EU account by setting `region="eu"`.
 
 ```python
 import amplitude_data_wrapper.analytics_api as amp
 
 # without proxy
 r = amp.get_chart(
-    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=1
-)  # region 1 is EU
+    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu"
+)  
 r.status_code
 r.json() # returns data as json
 ```
 
-Get data from US account by setting `region=2`.
+Get data from US account by setting `region="us"`.
 
 ```python
 r = amp.get_chart(
-    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=2
-)  # region 2 is USA
+    api_key=api_key, secret=api_secret, chart_id=chart_id_us, region="us"
+)  
 r.json() # returns data as json
 ```
 
@@ -69,7 +69,7 @@ Get data from EU account with a proxy by setting region and proxy using a dictio
 
 # with proxy
 proxies = {"http": "http://myproxy.example.org/method"}
-r = amp.get_chart(api_key, api_secret, chart_id_eu, region=1, proxy=proxies)
+r = amp.get_chart(api_key, api_secret, chart_id_eu, region="eu", proxy=proxies)
 r.status_code  # print status code
 ```
 
@@ -99,7 +99,7 @@ user = amp.find_user(
     user=example_id_eu, 
     api_key=api_key, 
     secret=api_secret,
-    region=1)
+    region="eu")
 ```
 
 ### Async chart downloads
@@ -118,7 +118,7 @@ deleteme = amp.delete_user_data(
     email=email,
     api_key=api_key,
     secret=api_secret,
-    region=1,
+    region="eu",
     ignore_invalid_id=True,
     delete_from_org=False,
 )
@@ -132,7 +132,7 @@ tobe_deleted = amp.get_deletion_jobs(
     end="2022-07-01",
     api_key=api_key,
     secret=api_secret,
-    region=1,
+    region="eu",
 )
 ```
 
@@ -149,7 +149,7 @@ kull = amp.get_cohort(
     cohort_id,
     filename=file_path,
     props=1,
-    region=1,
+    region="eu",
     proxy=proxies,
 )
 ```
@@ -167,7 +167,7 @@ data = amp.export_project_data(
     api_key=api_key,
     secret=api_secret,
     filename="path-to/projectdata_eu.zip",
-    region=1,
+    region="eu",
 )
 ```
 
@@ -179,5 +179,5 @@ data = amp.export_project_data(
 types = amp.get_all_event_types(
     api_key=api_key, 
     secret=api_secret, 
-    region=1)
+    region="eu")
 ```
