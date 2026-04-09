@@ -1,6 +1,6 @@
 [project]
 name = "amplitude-data-wrapper"
-version = "0.5.8"
+version = "0.6.0"
 description = "python wrapper for using the amplitude analytics and taxonomy APIs"
 authors = [
     {name = "Tobias McVey", email = "tobias.mcvey@nav.no"},
@@ -10,6 +10,7 @@ requires-python = ">=3.10"
 keywords = ["amplitude"]
 license = "MIT"
 dependencies = [
+    "aiohttp>=3.13.5",
     "requests>=2.32.3",
     "tqdm>=4.67.1",
 ]

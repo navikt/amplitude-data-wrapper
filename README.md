@@ -4,7 +4,7 @@
 
 This is a wrapper for [Amplitude](https://amplitude.com/) APIs. You can use it to query and export data from your account and use the taxonomy API.
 
-Built with [requests](https://requests.readthedocs.io/en/latest/) and [tqdm](https://github.com/tqdm/tqdm)
+Built with [requests](https://requests.readthedocs.io/en/latest/), [aiohttp](https://docs.aiohttp.org/en/stable/) and [tqdm](https://github.com/tqdm/tqdm)
 
 **Why use this package instead of other wrappers?**
 
@@ -17,6 +17,7 @@ This package also supports using a proxy so you can keep your project API keys a
 - [Amplitude data wrapper](#amplitude-data-wrapper)
   - [Supported Amplitude APIs and docs](#supported-amplitude-apis-and-docs)
     - [Dashboard Rest API](#dashboard-rest-api)
+    - [Async chart downloads](#async-chart-downloads)
     - [Privacy API](#privacy-api)
     - [Cohort API](#cohort-api)
     - [Export API](#export-api)
@@ -100,6 +101,12 @@ user = amp.find_user(
     secret=api_secret,
     region=1)
 ```
+
+### Async chart downloads
+
+You can also download chart data asynchronously. This is more efficient when downloading lots of charts at once. See [example-async.py](example-async.py) for an example program.
+
+PS! Since this uses asyncio I recommend running asynchronous requests as a separate program, not from a jupyter notebook.
 
 ### Privacy API
 
