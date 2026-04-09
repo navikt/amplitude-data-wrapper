@@ -18,16 +18,12 @@ example_id_eu = os.getenv("example_id_eu")
 cohort_id_eu = os.getenv("cohort_id_eu")
 # %%
 # without proxy
-r = amp.get_chart(
-    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu"
-)  
+r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu")
 r.status_code
 # %%
 r.json()  # returns data as json
 # %%
-r = amp.get_chart(
-    secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region="eu"
-) 
+r = amp.get_chart(secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region="eu")
 r.status_code
 # %%
 # with proxy
@@ -37,7 +33,9 @@ r.status_code  # print status code
 # %%
 r.json()  # print data as json
 # %%
-user = amp.find_user(user=example_id_eu, api_key=api_key, secret=api_secret, region="eu")
+user = amp.find_user(
+    user=example_id_eu, api_key=api_key, secret=api_secret, region="eu"
+)
 user.text  # print data
 # %%
 proxies = {"http": "http://myproxy.example.org/method"}
@@ -85,7 +83,9 @@ data = amp.export_project_data(
     region="eu",
 )
 # %%
-types = amp.get_all_event_types(api_key=test_api_key, secret=test_api_secret, region="eu")
+types = amp.get_all_event_types(
+    api_key=test_api_key, secret=test_api_secret, region="eu"
+)
 types.status_code  # 200
 types.text  # prints data
 # %%
