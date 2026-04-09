@@ -18,26 +18,24 @@ example_id_eu = os.getenv("example_id_eu")
 cohort_id_eu = os.getenv("cohort_id_eu")
 # %%
 # without proxy
-r = amp.get_chart(
-    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region=1
-)  # region 1 is EU
+r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu")
 r.status_code
 # %%
 r.json()  # returns data as json
 # %%
-r = amp.get_chart(
-    secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region=1
-)  # region 1 is EU
+r = amp.get_chart(secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region="eu")
 r.status_code
 # %%
 # with proxy
 proxies = {"http": "http://myproxy.example.org/method"}
-r = amp.get_chart(api_key, api_secret, chart_id_eu, region=1, proxy=proxies)
+r = amp.get_chart(api_key, api_secret, chart_id_eu, region="eu", proxy=proxies)
 r.status_code  # print status code
 # %%
 r.json()  # print data as json
 # %%
-user = amp.find_user(user=example_id_eu, api_key=api_key, secret=api_secret, region=1)
+user = amp.find_user(
+    user=example_id_eu, api_key=api_key, secret=api_secret, region="eu"
+)
 user.text  # print data
 # %%
 proxies = {"http": "http://myproxy.example.org/method"}
@@ -49,7 +47,7 @@ cohort = amp.get_cohort(
     cohort_id_eu,
     filename=path,
     props=1,
-    region=1,
+    region="eu",
     proxy=proxies,
 )
 # %%
@@ -59,7 +57,7 @@ deleteme = amp.delete_user_data(
     email=email,
     api_key=api_key,
     secret=api_secret,
-    region=1,
+    region="eu",
     ignore_invalid_id=True,
     delete_from_org=False,
 )
@@ -70,7 +68,7 @@ tobe_deleted = amp.get_deletion_jobs(
     end="2022-07-01",
     api_key=api_key,
     secret=api_secret,
-    region=1,
+    region="eu",
 )
 tobe_deleted.text
 # %%
@@ -82,10 +80,12 @@ data = amp.export_project_data(
     api_key=api_key,
     secret=api_secret,
     filename="data/projectdata.zip",
-    region=1,
+    region="eu",
 )
 # %%
-types = amp.get_all_event_types(api_key=test_api_key, secret=test_api_secret, region=1)
+types = amp.get_all_event_types(
+    api_key=test_api_key, secret=test_api_secret, region="eu"
+)
 types.status_code  # 200
 types.text  # prints data
 # %%
