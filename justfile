@@ -22,6 +22,7 @@ IMPORT_PROJECT := "amplitude_data_wrapper"
 # upgrade dependencies
 @update:
     uv lock --upgrade
+    uv sync
 
 # check code with ruff
 @check:
@@ -30,6 +31,10 @@ IMPORT_PROJECT := "amplitude_data_wrapper"
 # format with ruff
 @format:
     ruff format
+
+# check for known vulnerabilities in dependencies
+@audit:
+    uv audit
 
 # build package
 @build: check format package-test
