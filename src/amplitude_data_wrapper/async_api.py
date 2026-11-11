@@ -2,19 +2,21 @@
 import asyncio
 import base64
 import json
-from typing import Any
-from pathlib import Path
 import logging
+from pathlib import Path
+from typing import Any
 
 import aiohttp
+import anyio
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # %%
 API_DOMAINS = {
     "eu": "https://analytics.eu.amplitude.com/api/3/chart",
     "us": "https://analytics.amplitude.com/api/3/chart",
 }
-
-logging.basicConfig(level=logging.INFO)
 
 
 # %%
@@ -83,7 +85,7 @@ async def fetch_chart_json(
                 async with session.get(url, headers=headers, timeout=timeout) as resp:
                     if resp.status in (500, 502, 503, 504):
                         wait = 2**attempt
-                        logging.warning(
+                        logger.warning(
                             f"[{chart_id}] Retry {attempt}/{retries} — HTTP {resp.status} — waiting {wait}s"
                         )
                         await asyncio.sleep(wait)
@@ -92,30 +94,30 @@ async def fetch_chart_json(
                     if resp.status == 429:
                         wait = 300
                         txt = await resp.text()
-                        logging.warning(
+                        logger.warning(
                             f"Chart {chart_id} - HTTP {resp.status} -> {txt[:429]} - now waiting {wait / 60} minutes"
                         )
                         await asyncio.sleep(wait)
                         continue
 
                     if resp.status == 404:
-                        logging.error(f"[404] Chart not found: {chart_id}")
+                        logger.error(f"[404] Chart not found: {chart_id}")
                         return None
 
                     if resp.status != 200:
                         txt = await resp.text()
-                        logging.error(
+                        logger.error(
                             f"[ERROR] Chart {chart_id} — HTTP {resp.status} → {txt[:200]}"
                         )
                         return None
 
                     return await resp.json()
 
-            except asyncio.TimeoutError:
-                logging.warning(f"[TIMEOUT] {chart_id} attempt {attempt}")
+            except TimeoutError:
+                logger.warning(f"[TIMEOUT] {chart_id} attempt {attempt}")
                 await asyncio.sleep(2**attempt)
 
-    logging.error(f"[FAILED] {chart_id} after all retries")
+    logger.error(f"[FAILED] {chart_id} after all retries")
     return None
 
 
@@ -131,8 +133,8 @@ async def save_json(path: Path, data: dict) -> None:
         the chart data
     """
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+    async with await anyio.open_file(path, "w", encoding="utf-8") as f:
+        await f.write(json.dumps(data, indent=2))
 
 
 async def download_one_chart(
@@ -181,4 +183,4 @@ async def download_one_chart(
         return
 
     await save_json(out_path, data)
-    logging.info(f"Saved {out_path}")
+    logger.info(f"Saved {out_path}")

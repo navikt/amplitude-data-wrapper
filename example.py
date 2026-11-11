@@ -19,24 +19,24 @@ cohort_id_eu = os.getenv("cohort_id_eu")
 # %%
 # without proxy
 r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu")
-r.status_code
+print(r.status_code)
 # %%
 r.json()  # returns data as json
 # %%
 r = amp.get_chart(secret=api_secret, api_key=api_key, chart_id=chart_id_eu, region="eu")
-r.status_code
+print(r.status_code)
 # %%
 # with proxy
 proxies = {"http": "http://myproxy.example.org/method"}
 r = amp.get_chart(api_key, api_secret, chart_id_eu, region="eu", proxy=proxies)
-r.status_code  # print status code
+print(r.status_code)  # print status code
 # %%
 r.json()  # print data as json
 # %%
 user = amp.find_user(
     user=example_id_eu, api_key=api_key, secret=api_secret, region="eu"
 )
-user.text  # print data
+print(user.text)  # print data
 # %%
 proxies = {"http": "http://myproxy.example.org/method"}
 path = "data/cohortdata.csv"
@@ -61,7 +61,7 @@ deleteme = amp.delete_user_data(
     ignore_invalid_id=True,
     delete_from_org=False,
 )
-deleteme.text
+print(deleteme.text)
 # %%
 tobe_deleted = amp.get_deletion_jobs(
     start="2022-06-01",
@@ -70,7 +70,7 @@ tobe_deleted = amp.get_deletion_jobs(
     secret=api_secret,
     region="eu",
 )
-tobe_deleted.text
+print(tobe_deleted.text)
 # %%
 start = "20220501T09"
 end = "20220501T11"
@@ -86,8 +86,8 @@ data = amp.export_project_data(
 types = amp.get_all_event_types(
     api_key=test_api_key, secret=test_api_secret, region="eu"
 )
-types.status_code  # 200
-types.text  # prints data
+print(types.status_code)  # 200
+print(types.text)  # prints data
 # %%
 # write as json file
 with open("data/test_types.json", "w") as f:
@@ -109,7 +109,7 @@ with open("data/test_event_names.json", "w") as f:
 dtype = amp.delete_event_type(
     api_key=test_api_key, secret=test_api_secret, event_type="atque maxime ducimus"
 )
-dtype.status_code
+print(dtype.status_code)
 # %%
 # get an event with segments
 our_event_dict = {

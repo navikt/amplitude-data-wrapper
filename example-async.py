@@ -1,17 +1,21 @@
 # %%
 import asyncio
-import os
 import json
-from pathlib import Path
 import logging
+import os
+from pathlib import Path
 
 import aiohttp
+import anyio
 from dotenv import load_dotenv
 
 from src.amplitude_data_wrapper.async_api import (
     build_headers,
     download_one_chart,
 )
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # %%
 """
@@ -50,8 +54,6 @@ PROJECT_CREDENTIALS: dict[str, dict] = {
     PROJECT_ID: {"key": API_KEY, "secret": API_SECRET, "charts": chart_ids}
 }
 
-logging.basicConfig(level=logging.INFO)
-
 # %%
 
 
@@ -75,10 +77,12 @@ async def download_all() -> None:
             all_charts = set(cfg["charts"])
             missing = sorted(all_charts - existing)
             _ = list(missing)
-            with open(f"{SAVE_DIR}/missing.json", "w", encoding="utf-8") as f:
-                json.dump(_, f, indent=2)
+            async with await anyio.open_file(
+                f"{SAVE_DIR}/missing.json", "w", encoding="utf-8"
+            ) as f:
+                await f.write(json.dumps(_, indent=2))
 
-            logging.info(
+            logger.info(
                 f"Project {project_id}: {len(existing)} already downloaded, {len(missing)} missing"
             )
 
