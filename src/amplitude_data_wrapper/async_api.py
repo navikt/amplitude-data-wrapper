@@ -2,9 +2,9 @@
 import asyncio
 import base64
 import json
-from typing import Any
-from pathlib import Path
 import logging
+from pathlib import Path
+from typing import Any
 
 import aiohttp
 
@@ -111,7 +111,7 @@ async def fetch_chart_json(
 
                     return await resp.json()
 
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 logging.warning(f"[TIMEOUT] {chart_id} attempt {attempt}")
                 await asyncio.sleep(2**attempt)
 
