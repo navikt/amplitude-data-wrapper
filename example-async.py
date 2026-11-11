@@ -13,6 +13,9 @@ from src.amplitude_data_wrapper.async_api import (
     download_one_chart,
 )
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # %%
 """
 Download amplitude charts asynchronously 
@@ -50,8 +53,6 @@ PROJECT_CREDENTIALS: dict[str, dict] = {
     PROJECT_ID: {"key": API_KEY, "secret": API_SECRET, "charts": chart_ids}
 }
 
-logging.basicConfig(level=logging.INFO)
-
 # %%
 
 
@@ -78,7 +79,7 @@ async def download_all() -> None:
             with open(f"{SAVE_DIR}/missing.json", "w", encoding="utf-8") as f:
                 json.dump(_, f, indent=2)
 
-            logging.info(
+            logger.info(
                 f"Project {project_id}: {len(existing)} already downloaded, {len(missing)} missing"
             )
 
