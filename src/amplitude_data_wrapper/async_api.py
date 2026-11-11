@@ -8,13 +8,14 @@ from typing import Any
 
 import aiohttp
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # %%
 API_DOMAINS = {
     "eu": "https://analytics.eu.amplitude.com/api/3/chart",
     "us": "https://analytics.amplitude.com/api/3/chart",
 }
-
-logging.basicConfig(level=logging.INFO)
 
 
 # %%
@@ -83,7 +84,7 @@ async def fetch_chart_json(
                 async with session.get(url, headers=headers, timeout=timeout) as resp:
                     if resp.status in (500, 502, 503, 504):
                         wait = 2**attempt
-                        logging.warning(
+                        logger.warning(
                             f"[{chart_id}] Retry {attempt}/{retries} — HTTP {resp.status} — waiting {wait}s"
                         )
                         await asyncio.sleep(wait)
@@ -92,19 +93,19 @@ async def fetch_chart_json(
                     if resp.status == 429:
                         wait = 300
                         txt = await resp.text()
-                        logging.warning(
+                        logger.warning(
                             f"Chart {chart_id} - HTTP {resp.status} -> {txt[:429]} - now waiting {wait / 60} minutes"
                         )
                         await asyncio.sleep(wait)
                         continue
 
                     if resp.status == 404:
-                        logging.error(f"[404] Chart not found: {chart_id}")
+                        logger.error(f"[404] Chart not found: {chart_id}")
                         return None
 
                     if resp.status != 200:
                         txt = await resp.text()
-                        logging.error(
+                        logger.error(
                             f"[ERROR] Chart {chart_id} — HTTP {resp.status} → {txt[:200]}"
                         )
                         return None
@@ -112,10 +113,10 @@ async def fetch_chart_json(
                     return await resp.json()
 
             except TimeoutError:
-                logging.warning(f"[TIMEOUT] {chart_id} attempt {attempt}")
+                logger.warning(f"[TIMEOUT] {chart_id} attempt {attempt}")
                 await asyncio.sleep(2**attempt)
 
-    logging.error(f"[FAILED] {chart_id} after all retries")
+    logger.error(f"[FAILED] {chart_id} after all retries")
     return None
 
 
@@ -181,4 +182,4 @@ async def download_one_chart(
         return
 
     await save_json(out_path, data)
-    logging.info(f"Saved {out_path}")
+    logger.info(f"Saved {out_path}")
