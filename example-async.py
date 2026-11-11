@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 
 import aiohttp
+import anyio
 from dotenv import load_dotenv
 
 from src.amplitude_data_wrapper.async_api import (
@@ -76,8 +77,8 @@ async def download_all() -> None:
             all_charts = set(cfg["charts"])
             missing = sorted(all_charts - existing)
             _ = list(missing)
-            with open(f"{SAVE_DIR}/missing.json", "w", encoding="utf-8") as f:
-                json.dump(_, f, indent=2)
+            async with await anyio.open_file(f"{SAVE_DIR}/missing.json", "w", encoding="utf-8") as f:
+                await f.write(json.dumps(_, indent=2))
 
             logger.info(
                 f"Project {project_id}: {len(existing)} already downloaded, {len(missing)} missing"
