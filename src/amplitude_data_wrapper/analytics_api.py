@@ -10,6 +10,7 @@ from tqdm.auto import tqdm
 from urllib3.util import Retry
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 # %%
 API_DOMAINS = {
     "eu": "https://analytics.eu.amplitude.com",
@@ -58,7 +59,7 @@ def get_chart(
         auth=(api_key, secret),
         proxies=proxy,
     )
-    logging.info("Success. Retrieved data for chart_id %s", chart_id)
+    logger.info("Success. Retrieved data for chart_id %s", chart_id)
     return r
 
 
@@ -99,7 +100,7 @@ def find_user(
         auth=(api_key, secret),
         proxies=proxy,
     )
-    logging.info("Success. Found user %s", user)
+    logger.info("Success. Found user %s", user)
     return r
 
 
@@ -158,7 +159,7 @@ def get_cohort(
     response.raise_for_status()
     json_response = response.json()
     for key, value in json_response.items():
-        logging.info("%s : %s", key, value)
+        logger.info("%s : %s", key, value)
     header_status = 0
     request_id = json_response["request_id"]
     while header_status != 200:
@@ -173,11 +174,11 @@ def get_cohort(
         status_response.raise_for_status()
 
         if status_response.status_code == 202:
-            logging.info("Waiting for request_id %s to be completed", request_id)
+            logger.info("Waiting for request_id %s to be completed", request_id)
             time.sleep(5)
         elif status_response.status_code == 200:
             download_url = f"{url[region]}/api/5/cohorts/request/{request_id}/file"
-            logging.info("Downloading from %s", download_url)
+            logger.info("Downloading from %s", download_url)
             file_download = s.get(
                 download_url,
                 headers=headers,
@@ -263,7 +264,7 @@ def delete_user_data(
         auth=(api_key, secret),
         proxies=proxy,
     )
-    logging.info("Sletter brukere")
+    logger.info("Sletter brukere")
     return r
 
 
@@ -365,25 +366,25 @@ def export_project_data(
         stream=True,
         proxies=proxy,
     )
-    logging.info("Export request submitted")
+    logger.info("Export request submitted")
     response.raise_for_status()
     header_status = 0
     while header_status != 200:
-        logging.info("Waiting for response")
+        logger.info("Waiting for response")
         if response.status_code == 400:
-            logging.info(
+            logger.info(
                 "The file size of the exported data is too large. Shorten the time ranges and try again. The limit size is 4GB."
             )
         elif response.status_code == 404:
-            logging.info(
+            logger.info(
                 "Request data for a time range during which no data has been collected for the project, then you will receive a 404 response from our server."
             )
         elif response.status_code == 504:
-            logging.info(
+            logger.info(
                 "The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended."
             )
         elif response.status_code == 200:
-            logging.info("Success. Downloading file as %s", filename)
+            logger.info("Success. Downloading file as %s", filename)
             with tqdm.wrapattr(
                 open(filename, "wb"),
                 "write",
@@ -395,7 +396,7 @@ def export_project_data(
                     fout.write(chunk)
             header_status = 200
         else:
-            logging.error("Some other error occurred. Retrying again in 10 seconds.")
+            logger.error("Some other error occurred. Retrying again in 10 seconds.")
             time.sleep(10)
     return filename
 
