@@ -6,7 +6,7 @@ authors = [
     {name = "Tobias McVey", email = "tobias.mcvey@nav.no"},
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 keywords = ["amplitude"]
 license = "MIT"
 dependencies = [
