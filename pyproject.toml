@@ -11,6 +11,7 @@ keywords = ["amplitude"]
 license = "MIT"
 dependencies = [
     "aiohttp>=3.13.5",
+    "anyio>=4.16.0",
     "requests>=2.32.3",
     "tqdm>=4.67.1",
 ]
