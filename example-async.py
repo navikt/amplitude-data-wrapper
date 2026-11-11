@@ -77,7 +77,9 @@ async def download_all() -> None:
             all_charts = set(cfg["charts"])
             missing = sorted(all_charts - existing)
             _ = list(missing)
-            async with await anyio.open_file(f"{SAVE_DIR}/missing.json", "w", encoding="utf-8") as f:
+            async with await anyio.open_file(
+                f"{SAVE_DIR}/missing.json", "w", encoding="utf-8"
+            ) as f:
                 await f.write(json.dumps(_, indent=2))
 
             logger.info(
