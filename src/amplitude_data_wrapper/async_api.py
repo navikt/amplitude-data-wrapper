@@ -136,6 +136,7 @@ async def save_json(path: Path, data: dict) -> None:
     async with await anyio.open_file(path, "w", encoding="utf-8") as f:
         await f.write(json.dumps(data, indent=2))
 
+
 async def download_one_chart(
     session: aiohttp.ClientSession,
     chart_id: str,
