@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import aiohttp
+import anyio
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -132,9 +133,8 @@ async def save_json(path: Path, data: dict) -> None:
         the chart data
     """
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
-
+    async with await anyio.open_file(path, "w", encoding="utf-8") as f:
+        await f.write(json.dumps(data, indent=2))
 
 async def download_one_chart(
     session: aiohttp.ClientSession,
