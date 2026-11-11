@@ -199,7 +199,7 @@ def get_cohort(
                     fout.write(chunk)
             header_status = 200
         else:
-            logging.error(
+            logger.error(
                 f"An error occurred, retrying to reach request ID {request_id} and request URL {download_url} in 10 seconds"
             )
             time.sleep(10)
