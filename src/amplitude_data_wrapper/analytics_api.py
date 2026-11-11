@@ -352,9 +352,9 @@ def export_project_data(
 
     Returns
     ----------
-    filename: zip-file containing multiple gzip files, one for each hour
+    results: zip-file containing multiple gzip files, one for each hour
     """
-    filename = filename
+    results = filename
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
     urls = API_DOMAINS
     s = requests.Session()
@@ -384,13 +384,13 @@ def export_project_data(
                 "The amount of data is large causing a timeout. For large amounts of data, the Amazon S3 destination is recommended."
             )
         elif response.status_code == 200:
-            logger.info("Success. Downloading file as %s", filename)
+            logger.info("Success. Downloading file as %s", results)
             with tqdm.wrapattr(
-                open(filename, "wb"),
+                open(results, "wb"),
                 "write",
                 miniters=1,
                 total=int(response.headers.get("content-length", 0)),
-                desc=filename,
+                desc=results,
             ) as fout:
                 for chunk in response.iter_content(chunk_size=8192):
                     fout.write(chunk)
@@ -398,7 +398,7 @@ def export_project_data(
         else:
             logger.error("Some other error occurred. Retrying again in 10 seconds.")
             time.sleep(10)
-    return filename
+    return results
 
 
 # %%
