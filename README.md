@@ -47,26 +47,21 @@ Get data from EU account by setting `region="eu"`.
 import amplitude_data_wrapper.analytics_api as amp
 
 # without proxy
-r = amp.get_chart(
-    api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu"
-)  
+r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu")
 r.status_code
-r.json() # returns data as json
+r.json()  # returns data as json
 ```
 
 Get data from US account by setting `region="us"`.
 
 ```python
-r = amp.get_chart(
-    api_key=api_key, secret=api_secret, chart_id=chart_id_us, region="us"
-)  
-r.json() # returns data as json
+r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_us, region="us")
+r.json()  # returns data as json
 ```
 
 Get data from EU account with a proxy by setting region and proxy using a dictionary.
 
 ```python
-
 # with proxy
 proxies = {"http": "http://myproxy.example.org/method"}
 r = amp.get_chart(api_key, api_secret, chart_id_eu, region="eu", proxy=proxies)
@@ -96,10 +91,8 @@ data = amp.get_event_segmentation(
 
 ```python
 user = amp.find_user(
-    user=example_id_eu, 
-    api_key=api_key, 
-    secret=api_secret,
-    region="eu")
+    user=example_id_eu, api_key=api_key, secret=api_secret, region="eu"
+)
 ```
 
 ### Async chart downloads
@@ -176,8 +169,5 @@ data = amp.export_project_data(
 [Get all event types](https://developers.amplitude.com/docs/taxonomy-api#get-all-event-types)
 
 ```python
-types = amp.get_all_event_types(
-    api_key=api_key, 
-    secret=api_secret, 
-    region="eu")
+types = amp.get_all_event_types(api_key=api_key, secret=api_secret, region="eu")
 ```
