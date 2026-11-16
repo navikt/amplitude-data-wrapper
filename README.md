@@ -1,6 +1,8 @@
 # Amplitude data wrapper
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tobiasmcvey/amplitude-data-wrapper/.github%2Fworkflows%2Frelease.yml)](https://github.com/navikt/amplitude-data-wrapper/blob/main/.github/workflows/release.yml)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/amplitude-data-wrapper?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/amplitude-data-wrapper)
 
 This is a wrapper for [Amplitude](https://amplitude.com/) APIs. You can use it to query and export data from your account and use the taxonomy API.
 
