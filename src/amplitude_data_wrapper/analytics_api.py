@@ -162,6 +162,7 @@ def get_cohort(
         logger.info("%s : %s", key, value)
     header_status = 0
     request_id = json_response["request_id"]
+    download_url = ""
     while header_status != 200:
         status_response = s.get(
             f"{url[region]}/api/5/cohorts/request-status/{request_id}",
