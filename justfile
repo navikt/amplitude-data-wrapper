@@ -21,8 +21,7 @@ IMPORT_PROJECT := "amplitude_data_wrapper"
 
 # upgrade dependencies
 @update:
-    uv lock --upgrade
-    uv sync
+    uv sync --upgrade
 
 # check code with ruff
 @check:
