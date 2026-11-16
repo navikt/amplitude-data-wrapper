@@ -82,7 +82,9 @@ async def fetch_chart_json(
     for attempt in range(1, retries + 1):
         async with sem:
             try:
-                async with session.get(url, headers=headers, timeout=timeout) as resp:
+                async with session.get(
+                    url, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout)
+                ) as resp:
                     if resp.status in (500, 502, 503, 504):
                         wait = 2**attempt
                         logger.warning(
