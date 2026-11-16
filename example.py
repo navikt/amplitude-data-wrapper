@@ -8,14 +8,14 @@ import src.amplitude_data_wrapper.analytics_api as amp
 
 # %%
 load_dotenv()
-api_key = os.getenv("AMPLITUDE_EU_PROD_KEY")
-api_secret = os.getenv("AMPLITUDE_EU_PROD_SECRET")
-test_api_key = os.getenv("AMPLITUDE_EU_TEST_KEY")
-test_api_secret = os.getenv("AMPLITUDE_EU_TEST_SECRET")
-email = os.getenv("email")
-chart_id_eu = os.getenv("chart_id_eu")
-example_id_eu = os.getenv("example_id_eu")
-cohort_id_eu = os.getenv("cohort_id_eu")
+api_key = os.getenv("AMPLITUDE_EU_PROD_KEY", default="empty")
+api_secret = os.getenv("AMPLITUDE_EU_PROD_SECRET", default="empty")
+test_api_key = os.getenv("AMPLITUDE_EU_TEST_KEY", default="empty")
+test_api_secret = os.getenv("AMPLITUDE_EU_TEST_SECRET", default="empty")
+email = os.getenv("email", default="empty")
+chart_id_eu = os.getenv("chart_id_eu", default="empty")
+example_id_eu = os.getenv("example_id_eu", default="empty")
+cohort_id_eu = os.getenv("cohort_id_eu", default="empty")
 # %%
 # without proxy
 r = amp.get_chart(api_key=api_key, secret=api_secret, chart_id=chart_id_eu, region="eu")
@@ -53,7 +53,8 @@ cohort = amp.get_cohort(
 # %%
 user_data = json.loads(user.text)
 deleteme = amp.delete_user_data(
-    user["matches"][0]["amplitude_id"],
+    deletion_list=user.json()["matches"][0]["amplitude_id"],
+    user_ids=user.json(),
     email=email,
     api_key=api_key,
     secret=api_secret,
